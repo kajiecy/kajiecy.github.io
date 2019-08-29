@@ -20,15 +20,18 @@ import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 export default class Home extends Vue {
   getUserInfo(){
     //@ts-ignore
-    this.$get('https://api.github.com/user?token_access=f321335d3b6d5b4adac0cef8f273a74f8613e2ca');
+    this.$get('https://api.github.com/user?token_access=43e74966374ada1fe3b4659fd80d7dd5ddd74420');
   }
   toLogin(){
-    window.open('https://github.com/login/oauth/authorize?client_id=7790a8ea876aad00d848')
-    // c70586be38bfc56e265f
+    // window.open('https://github.com/login/oauth/authorize?client_id=7790a8ea876aad00d848&scope=public_repo&redirect_uri=http://192.168.16.139:8080/')
+    //@ts-ignore
+    window.open('https://github.com/login/oauth/authorize?scope=public_repo&redirect_uri=https://www.kajie88.com/&client_id=7790a8ea876aad00d848&client_secret=00466aedf6ff40c839b2ea435686230eda4895ad');
+
   }
   async getToken(){
     //@ts-ignore
-    let result = await this.$get('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',{code:'f80f53a6970d1c8f6088',client_id:'7790a8ea876aad00d848',client_secret:'00466aedf6ff40c839b2ea435686230eda4895ad'});
+    // let result = await this.$get('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',{code:'c30e48be8765262f964c',client_id:'b08ed25e52c57993e69c',client_secret:'1cb9545488f0380904b87350e7c5a270ae03bab7'});
+    let result = await this.$get('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',{code:'12277f56e1fc1aa9d074',client_id:'7790a8ea876aad00d848',client_secret:'00466aedf6ff40c839b2ea435686230eda4895ad'});
     let data = result.data;
     function test(href:any){
       let params = href;

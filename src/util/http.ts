@@ -43,7 +43,7 @@ axios.interceptors.response.use((response) => {
 
 export function post(url: string, data: any = {}, option: any = {}) {
     return new Promise((resolve, reject) => {
-        let config = {headers:{Authorization:'token f321335d3b6d5b4adac0cef8f273a74f8613e2ca'}};
+        let config = {headers:{Authorization:'token 43e74966374ada1fe3b4659fd80d7dd5ddd74420'}};
         // const loading = Loading.service({
         //   lock: true,
         //   text: '加载中...',
@@ -75,7 +75,7 @@ export function get(url: string, data: any = {}, option: any = {}) {
 
     let paramStr = urlEncode(data,null,null);
     return new Promise((resolve, reject) => {
-        axios.get(url)
+        axios.get(url+'?'+paramStr)
             .then((response) => {
                 console.log(response);
                 resolve(response);
@@ -99,9 +99,6 @@ function urlEncode  (param:any, key:string|null, encode:string|null) {
             let k = key == null ? i : key + (param instanceof Array ? '[' + i + ']' : '.' + i)
             paramStr += urlEncode(param[i], k, encode)
         }
-    }
-    if(paramStr.length){
-        // paramStr = paramStr.substring(1,paramStr.length);
     }
     return paramStr;
 }
