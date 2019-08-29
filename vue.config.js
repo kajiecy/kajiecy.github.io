@@ -1,4 +1,5 @@
 module.exports = {
-  publicPath: '/blog',
-  outputDir: 'blog'
+  publicPath: '',
+  outputDir: 'blog',
+  indexPath:'./../index.html',
 }
