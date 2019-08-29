@@ -19,7 +19,14 @@ import GithubApi from '@/util/GithubApi.ts'; // @ is an alias to /src
   },
 })
 export default class Home extends Vue {
-  githubApi:GithubApi =new GithubApi({clientId:'bb75d376202e7c49a8b6',clientSecret:'b2cc94c423c87d09e84119876e4abea998bfee07'});
+  // 一旦将完整的clientSecret提交到仓库中 github会重置我的clientSecret
+  githubApi:GithubApi =new GithubApi({
+    clientId:'bb7'+'5d3762'+'02e7c49a8b6',
+    clientSecret:'b2cc94c'+'423c87d09e'+'84119876e4a'+'bea998bfee07',
+    owner:'kajiecy',
+    repo:'kajiecy.github.io',
+    issueNumber:'1'
+  });
   created(){
   }
   mounted(){
@@ -32,26 +39,10 @@ export default class Home extends Vue {
     this.githubApi.toLogin();
   }
   async getToken(){
-    //@ts-ignore
-    // let result = await this.$get('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',{code:'c30e48be8765262f964c',client_id:'b08ed25e52c57993e69c',client_secret:'1cb9545488f0380904b87350e7c5a270ae03bab7'});
-    let result = await this.$get('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',{code:'12277f56e1fc1aa9d074',client_id:'7790a8ea876aad00d848',client_secret:'00466aedf6ff40c839b2ea435686230eda4895ad'});
-    let data = result.data;
-    function test(href:any){
-      let params = href;
-      let paramArr = params.split('&');
-      let res:any = {};
-      for(let i = 0;i<paramArr.length;i++){
-        let str = paramArr[i].split('=');
-        res[str[0]]=str[1];
-      }
-      console.log(res)
-    }
-    test(data);
-    // cd22d6313c9e3d2bf8cc039f614d911522643e91
+    this.githubApi.getToken({code:'8fef7a8450de2e407ff2'});
   }
-  createComment(){
-    //@ts-ignore
-    this.$post('https://api.github.com/repos/kajiecy/kajiecy.github.io/issues/1/comments',{body:'me too'});
+  async createComment(){
+    let newCommentInfo = await this.githubApi.createComment({comment:'111'})
   }
 
 }

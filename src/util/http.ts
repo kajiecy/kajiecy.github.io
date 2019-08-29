@@ -1,5 +1,6 @@
 import axios from 'axios';
 import commonUtil from './commonUtil';
+import GithubConfig from './GithubConfig';
 // axios.defaults.timeout = 5000;
 // axios.defaults.baseURL ='';
 
@@ -16,7 +17,7 @@ import commonUtil from './commonUtil';
 
 // http request 拦截器
 axios.interceptors.request.use((config) => {
-    let token = localStorage.getItem('token_access');
+    let token = localStorage.getItem(GithubConfig.LOCALSTORAGE_NAME);
     if (token) { // 判断是否存在token，如果存在的话，则每个http header都加上token
         config.headers.Authorization = `token ${token}`
     }
@@ -70,7 +71,6 @@ export function get(url: string, data: any = {}, option: any = {}) {
             .then((response) => {
                 resolve(response);
             }, (err) => {
-                console.log(err);
                 reject(err);
             });
     });

@@ -1,4 +1,3 @@
-
 let commonUtil = {
     //将url?后面截取的字符串转为json对象;
     urlParam2Json:(params:any)=>{
@@ -8,6 +7,7 @@ let commonUtil = {
             let str = paramArr[i].split('=');
             res[str[0]]=str[1];
         }
+        return res;
     },
     // 将json转为get的url参数;
     json2UrlParam:function (param:any, key?:string, encode?:string) {
@@ -23,7 +23,13 @@ let commonUtil = {
             }
         }
         return paramStr;
+    },
+    replaceGithubUrl : function (gitURL: string, param: any) {
+        return gitURL.replace(/(:\w+)/gi, function(item){
+                return param[item.replace(':',"_")]
+            }
+        );
     }
-}
+};
 
 export default commonUtil;
