@@ -1,4 +1,5 @@
 import axios from 'axios';
+import commonUtil from './commonUtil';
 // axios.defaults.timeout = 5000;
 // axios.defaults.baseURL ='';
 
@@ -15,8 +16,10 @@ import axios from 'axios';
 
 // http request 拦截器
 axios.interceptors.request.use((config) => {
-    // const token = getCookie('名称');注意使用的时候需要引入cookie方法，推荐js-cookie
-    // console.log("========================>拦截到请求的 request",config)
+    let token = localStorage.getItem('token_access');
+    if (token) { // 判断是否存在token，如果存在的话，则每个http header都加上token
+        config.headers.Authorization = `token ${token}`
+    }
     return config;
   },
         (error) => {
@@ -43,21 +46,10 @@ axios.interceptors.response.use((response) => {
 
 export function post(url: string, data: any = {}, option: any = {}) {
     return new Promise((resolve, reject) => {
-        let config = {headers:{Authorization:'token 43e74966374ada1fe3b4659fd80d7dd5ddd74420'}};
-        // const loading = Loading.service({
-        //   lock: true,
-        //   text: '加载中...',
-        //   // spinner: 'el-icon-loading',
-        //   background: 'rgba(0, 0, 0, 0.0)'
-        // });
-        // console.log("声明了一个loadIng");
-        axios.post(url, data,config)
+        axios.post(url, data,option)
             .then((response) => {
-                console.log('response-->',response);
                 resolve(response.data);
             }, (err) => {
-                // loading.close();
-                // console.log("关闭err");
                 reject(err);
             });
     });
@@ -72,33 +64,16 @@ export function post(url: string, data: any = {}, option: any = {}) {
  */
 
 export function get(url: string, data: any = {}, option: any = {}) {
-
-    let paramStr = urlEncode(data,null,null);
+    let paramStr = commonUtil.json2UrlParam(data);
     return new Promise((resolve, reject) => {
         axios.get(url+'?'+paramStr)
             .then((response) => {
-                console.log(response);
                 resolve(response);
             }, (err) => {
-                // loading.close();
-                // console.log("关闭err");
+                console.log(err);
                 reject(err);
             });
     });
 }
 
 
-function urlEncode  (param:any, key:string|null, encode:string|null) {
-    if (param==null) return '';
-    let paramStr = '';
-    let t = typeof (param);
-    if (t == 'string' || t == 'number' || t == 'boolean') {
-        paramStr += '&' + key + '='  + ((encode==null||encode) ? encodeURIComponent(param) : param);
-    } else {
-        for (let i in param) {
-            let k = key == null ? i : key + (param instanceof Array ? '[' + i + ']' : '.' + i)
-            paramStr += urlEncode(param[i], k, encode)
-        }
-    }
-    return paramStr;
-}

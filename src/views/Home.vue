@@ -11,6 +11,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import GithubApi from '@/util/GithubApi.ts'; // @ is an alias to /src
 
 @Component({
   components: {
@@ -18,15 +19,17 @@ import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
   },
 })
 export default class Home extends Vue {
+  githubApi:GithubApi =new GithubApi({clientId:'bb75d376202e7c49a8b6',clientSecret:'b2cc94c423c87d09e84119876e4abea998bfee07'});
+  created(){
+  }
+  mounted(){
+  }
   getUserInfo(){
     //@ts-ignore
     this.$get('https://api.github.com/user?token_access=43e74966374ada1fe3b4659fd80d7dd5ddd74420');
   }
   toLogin(){
-    // window.open('https://github.com/login/oauth/authorize?client_id=7790a8ea876aad00d848&scope=public_repo&redirect_uri=http://192.168.16.139:8080/')
-    //@ts-ignore
-    window.open('https://github.com/login/oauth/authorize?scope=public_repo&redirect_uri=https://www.kajie88.com/&client_id=7790a8ea876aad00d848&client_secret=00466aedf6ff40c839b2ea435686230eda4895ad');
-
+    this.githubApi.toLogin();
   }
   async getToken(){
     //@ts-ignore
