@@ -25,7 +25,6 @@ class GithubApi {
         this._repo = repo;
         this._issue_number = issueNumber;
     }
-
     /**
      *  发送get请求让用户进行登录
      * @param publicRepo scope级别(请不要随便更改) 文档:https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
@@ -50,6 +49,10 @@ class GithubApi {
             }
         })
     }
+    /**
+     * 创建一条评论 需要登录
+     * @param comment 评论内容
+     */
     async createComment({comment}:{comment:string}){
         return new Promise(async (resolve, reject) => {
             let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.createComment,this);

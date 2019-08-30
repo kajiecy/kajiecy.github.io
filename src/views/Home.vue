@@ -32,14 +32,12 @@ export default class Home extends Vue {
   mounted(){
   }
   getUserInfo(){
-    //@ts-ignore
-    this.$get('https://api.github.com/user?token_access=43e74966374ada1fe3b4659fd80d7dd5ddd74420');
   }
   toLogin(){
     this.githubApi.toLogin();
   }
   async getToken(){
-    this.githubApi.getToken({code:'8fef7a8450de2e407ff2'});
+    await this.githubApi.getToken({code:'8fef7a8450de2e407ff2'});
   }
   async createComment(){
     let newCommentInfo = await this.githubApi.createComment({comment:'111'})
