@@ -69,7 +69,7 @@ export function get(url: string, data: any = {}, option: any = {}) {
     return new Promise((resolve, reject) => {
         axios.get(url+'?'+paramStr)
             .then((response) => {
-                resolve(response);
+                resolve(response.data);
             }, (err) => {
                 reject(err);
             });

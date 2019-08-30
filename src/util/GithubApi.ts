@@ -3,9 +3,12 @@ import commonUtil from './commonUtil';
 import GithubConfig from './GithubConfig';
 
 enum GithubUrlEnum {
-    toLogin = 'https://github.com/login/oauth/authorize',
-    getToken = 'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',
-    createComment = 'https://api.github.com/repos/:owner/:repo/issues/:issue_number/comments',
+    toLogin = 'https://github.com/login/oauth/authorize',// 登录转跳
+    getToken = 'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token', // 获取用户access_token
+    createComment = 'https://api.github.com/repos/:owner/:repo/issues/:issue_number/comments', // 添加评论
+    labelsList4Repository = 'https://api.github.com/repos/:owner/:repo/labels', // 获取标签列表
+    labelsMilestones4Repository = 'https://api.github.com/repos/:owner/:repo/milestones', // 获取里程碑列表
+    getIssuesList = 'https://api.github.com/repos/:owner/:repo/issues', // 获取博客信息
 }
 
 class GithubApi {
@@ -37,7 +40,7 @@ class GithubApi {
         //此处地址需要转发否则跨域
         return new Promise(async (resolve, reject) => {
             let res =await this._get(GithubUrlEnum.getToken,{code:code,client_id:this._clientId,client_secret:this._clientSecret});
-            let getTokenResult = commonUtil.urlParam2Json(res.data);
+            let getTokenResult = commonUtil.urlParam2Json(res);
             if(!getTokenResult.error){
                 //将token存到localStorage
                 localStorage.setItem(GithubConfig.LOCALSTORAGE_NAME,getTokenResult.access_token);
@@ -62,8 +65,59 @@ class GithubApi {
             }
         });
     }
+
+    /**
+     * 查询库中的所有labels
+     */
+    async labelsList4Repository(){
+        return new Promise(async (resolve, reject) => {
+            let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.labelsList4Repository,this);
+            // 这个接口完全没有任何筛选功能...f*ck
+            let res = await this._get(realUrl,{});
+            resolve(res)
+        });
+    }
+
+    /**
+     * 获取 repo中的里程碑 已弃用 issues中不能通过 里程碑检索
+     * @param state
+     * @param sort
+     * @param direction
+     * @param page
+     * @param perPage
+     */
+    async labelsMilestones4Repository({state,page,perPage}:{state?:string,page?:number,perPage?:number}={}){
+        return new Promise(async (resolve, reject) => {
+            let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.labelsMilestones4Repository,this);
+            page = page||1;
+            perPage = perPage||20;
+            let res = await this._get(realUrl,{state,page,'per_page':perPage});
+            resolve(res)
+        });
+    }
+    /**
+     * 获取issues的list
+     * @param creator
+     * @param milestone
+     * @param labels
+     * @param page
+     * @param perPage
+     */
+    async getIssuesList({creator,milestone,labels,page,perPage}:{creator?:string,milestone?:string|number,labels?:string,page?:number,perPage?:number}={}){
+        return new Promise(async (resolve, reject) => {
+            let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.getIssuesList,this);
+            creator = creator||this._owner;
+            page = page||1;
+            perPage = perPage||10;
+            milestone = milestone||'*';
+            let res = await this._get(realUrl,{creator,milestone,labels,page,'per_page':perPage});
+            resolve(res)
+        });
+    }
+
 }
 export default GithubApi;
+
 
 
 

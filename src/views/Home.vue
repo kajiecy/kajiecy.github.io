@@ -4,6 +4,10 @@
     <button @click="toLogin()">toLogin</button>
     <button @click="getToken()">getToken</button>
     <button @click="createComment()">createComment</button>
+    <br>
+    <button @click="getLabels()">getLabels</button>
+    <button @click="getMilestones()">getMilestones</button>
+    <button @click="getIssuesList()">getIssuesList</button>
 
   </div>
 </template>
@@ -21,8 +25,8 @@ import GithubApi from '@/util/GithubApi.ts'; // @ is an alias to /src
 export default class Home extends Vue {
   // 一旦将完整的clientSecret提交到仓库中 github会重置我的clientSecret
   githubApi:GithubApi =new GithubApi({
-    clientId:'bb7'+'5d3762'+'02e7c49a8b6',
-    clientSecret:'b2cc94c'+'423c87d09e'+'84119876e4a'+'bea998bfee07',
+    clientId:'bb75d376202e7c49a8b6',
+    clientSecret:'b2cc94c423c87d09e'+'84119876e4abea998bfee07',
     owner:'kajiecy',
     repo:'kajiecy.github.io',
     issueNumber:'1'
@@ -42,6 +46,17 @@ export default class Home extends Vue {
   async createComment(){
     let newCommentInfo = await this.githubApi.createComment({comment:'111'})
   }
-
+  async getLabels(){
+    let labels = await this.githubApi.labelsList4Repository();
+    console.log('labels---->',labels);
+  }
+  async getMilestones(){
+    let milestones = await this.githubApi.labelsMilestones4Repository();
+    console.log('milestones---->',milestones);
+  }
+  async getIssuesList(){
+    let issuesList = await this.githubApi.getIssuesList({milestone:'',labels:''});
+    console.log('issuesList---->',issuesList);
+  }
 }
 </script>
