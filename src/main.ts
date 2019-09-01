@@ -8,6 +8,7 @@ import GithubApi from '@/util/GithubApi.ts'; // @ is an alias to /src
 import '@/assets/css/main.scss';
 import '@/assets/css/common.scss';
 
+
 Vue.config.productionTip = false;
 // 初始化api对象
 Vue.prototype.$githubApi = new GithubApi({

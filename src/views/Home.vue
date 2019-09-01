@@ -20,31 +20,18 @@
                         10
                     </div>
                 </div>
-                <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}"><a
-                        class="active nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页"><i
-                        class="mdui-list-item-icon nexmoefont icon-home"></i>
-                    <div class="mdui-list-item-content">回到首页</div>
-                </a><a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于博客"><i
-                        class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
-                    <div class="mdui-list-item-content">关于博客</div>
-                </a><a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的朋友"><i
-                        class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
-                    <div class="mdui-list-item-content">我的朋友</div>
-                </a></ul>
+                <ul class="blog-function-list" >
+                    <a class="blog-function-list-item active" href="javascript:void(0)" title="我的首页">
+                        <div class="list-item-content"><i class="item-icon iconfont icon-shouye"></i>我的首页</div>
+                    </a>
+                    <a class="blog-function-list-item " href="javascript:void(0)" title="关于博客">
+                        <div class="list-item-content"><i class="item-icon iconfont icon-about"></i>关于博客</div>
+                    </a>
+                </ul>
             </div>
             <div class="grid-body" style="height: 2000px">
                 <div style="height: 60px">1</div>
-                <div style="height: 60px">2</div>
-                <div style="height: 60px">3</div>
-                <div style="height: 60px">4</div>
-                <div style="height: 60px">5</div>
-                <div style="height: 60px">6</div>
-                <div style="height: 60px">1</div>
-                <div style="height: 60px">2</div>
-                <div style="height: 60px">3</div>
-                <div style="height: 60px">4</div>
-                <div style="height: 60px">5</div>
-                <div style="height: 60px">6</div>
+
             </div>
         </div>
     </div>
@@ -90,12 +77,11 @@
         .home-body {
             width: 1200px;
             margin: 0 auto;
-
+            display: flex;
             .left-info {
                 text-align: center;
-                width: 240px;
                 display: inline-block;
-
+                flex: 0 0 240px;
                 .user-avatar {
                     margin: 45px;
                     z-index: 4;
@@ -106,7 +92,6 @@
                     border-radius: 100%;
                     box-shadow: 0 0.3rem 2rem rgba(161, 177, 204, .6);
                 }
-
                 .blog-count {
                     div {
                         display: inline-block;
@@ -120,10 +105,48 @@
                         }
                     }
                 }
+                .blog-function-list{
+                    padding:8px 20px;
+                    margin: 10px 0 0 0;
+                    list-style: none;
+                    background-color: transparent;
+                    .blog-function-list-item{
+                        text-decoration: none;
+                        padding: 0 36px;
+                        color: #9ca2a8;
+                        text-align: center;
+                        margin-bottom: 10px;
+
+                        .list-item-content{
+                            padding-top: 14px;
+                            padding-bottom: 14px;
+                            font-size: 16px;
+                            font-weight: 400;
+                            line-height: 20px;
+                            transition: all .5s;
+
+                            border-radius: 10px;
+                            .item-icon{
+                                display: inline-block;
+                                margin-right: 15px;
+                                font-size: 20px;
+                            }
+                        }
+                        .list-item-content:hover{
+                            background: #D1D1D1;
+                        }
+                        &.active .list-item-content{
+                            color: #ffffff;
+                            opacity: .9;
+                            background: #ff4e6a;
+                            box-shadow: 0 2px 12px #ff4e6a;
+                        }
+                    }
+                }
             }
 
             .grid-body {
-                width: 960px;
+                flex: 0 0 960px;
                 display: inline-grid;
                 grid-template-columns: repeat(12, 1fr);
                 grid-gap: 16px 32px;
