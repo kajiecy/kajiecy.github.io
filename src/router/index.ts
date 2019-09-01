@@ -20,6 +20,11 @@ export default new Router({
       path: '/callback',
       name: 'callback',
       component: () => import(/* webpackChunkName: "about" */ '@/views/LoginCallBack.vue')
-    }
+    },
+    {
+      path: '/api_test',
+      name: 'callback',
+      component: () => import(/* webpackChunkName: "about" */ '@/views/ApiTest.vue')
+    },
   ]
 })

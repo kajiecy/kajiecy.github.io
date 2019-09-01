@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import '@/assets/css/main.scss';
+import '@/assets/css/common.scss';
+
 Vue.config.productionTip = false;
 // axios 封装 post
 import {post,get} from './util/http';

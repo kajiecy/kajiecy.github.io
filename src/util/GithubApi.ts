@@ -114,7 +114,6 @@ class GithubApi {
             resolve(res)
         });
     }
-
 }
 export default GithubApi;
 
