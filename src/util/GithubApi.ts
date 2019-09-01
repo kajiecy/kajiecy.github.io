@@ -116,7 +116,7 @@ class GithubApi {
         });
     }
 
-    async getBlogMasterInfo(){
+    async getBloggerInfo(){
         return new Promise(async (resolve, reject) => {
             let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.getUserInfo,this);
             let res = await this._get(realUrl,{});
