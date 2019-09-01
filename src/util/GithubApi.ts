@@ -9,6 +9,7 @@ enum GithubUrlEnum {
     labelsList4Repository = 'https://api.github.com/repos/:owner/:repo/labels', // 获取标签列表
     labelsMilestones4Repository = 'https://api.github.com/repos/:owner/:repo/milestones', // 获取里程碑列表
     getIssuesList = 'https://api.github.com/repos/:owner/:repo/issues', // 获取博客信息
+    getUserInfo = 'https://api.github.com/users/:owner',
 }
 
 class GithubApi {
@@ -111,6 +112,14 @@ class GithubApi {
             perPage = perPage||10;
             milestone = milestone||'*';
             let res = await this._get(realUrl,{creator,milestone,labels,page,'per_page':perPage});
+            resolve(res)
+        });
+    }
+
+    async getBlogMasterInfo(){
+        return new Promise(async (resolve, reject) => {
+            let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.getUserInfo,this);
+            let res = await this._get(realUrl,{});
             resolve(res)
         });
     }

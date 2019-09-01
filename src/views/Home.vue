@@ -1,13 +1,24 @@
 <template>
   <div class="home">
     <div class="home-background-div"></div>
-    <div class="grid-body">
-      <div style="height: 60px">1</div>
-      <div style="height: 60px">2</div>
-      <div style="height: 60px">3</div>
-      <div style="height: 60px">4</div>
-      <div style="height: 60px">5</div>
-      <div style="height: 60px">6</div>
+    <div class="home-body">
+      <div class="left-info">
+        <div class="user-avatar"></div>
+      </div>
+      <div class="grid-body">
+        <div style="height: 60px">1</div>
+        <div style="height: 60px">2</div>
+        <div style="height: 60px">3</div>
+        <div style="height: 60px">4</div>
+        <div style="height: 60px">5</div>
+        <div style="height: 60px">6</div>
+        <div style="height: 60px">1</div>
+        <div style="height: 60px">2</div>
+        <div style="height: 60px">3</div>
+        <div style="height: 60px">4</div>
+        <div style="height: 60px">5</div>
+        <div style="height: 60px">6</div>
+      </div>
     </div>
   </div>
 </template>
@@ -20,9 +31,13 @@ import { Component, Vue } from 'vue-property-decorator';
   },
 })
 export default class Home extends Vue {
+  userInfo:any;
   created(){
   }
   mounted(){
+    (async ()=>{
+      let masterInfo = await this.$githubApi.getBlogMasterInfo();
+    })()
   }
 
 }
@@ -42,10 +57,20 @@ export default class Home extends Vue {
       opacity: 0.2;
       filter:blur(30px);
     }
-    .grid-body{
-      display: grid;
-      grid-template-columns: repeat(12,1fr);
-      grid-gap: 16px 32px;
+    .home-body{
+      width: 1200px;
+      margin: 0 auto;
+      .left-info{
+        width: 240px;
+        display: inline-block;
+      }
+      .grid-body{
+        width: 960px;
+        display: inline-grid;
+        grid-template-columns: repeat(12,1fr);
+        grid-gap: 16px 32px;
+      }
     }
+
   }
 </style>
