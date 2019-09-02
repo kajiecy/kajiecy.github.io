@@ -90,18 +90,7 @@
                                 <span class="item">
                                 #Linux
                             </span>
-                                <span class="item">
-                                #Linux
-                            </span>
-                                <span class="item">
-                                #Linux
-                            </span>
-                                <span class="item">
-                                #Linux
-                            </span>
-                                <span class="item">
-                                #Linux
-                            </span>
+
                             </div>
                         </div>
                         <div class="blog-widget-wrap blog-widget-tags">

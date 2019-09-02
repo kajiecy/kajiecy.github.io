@@ -52,7 +52,7 @@
             console.log('issuesList---->',issuesList);
         }
         async getBlogMasterInfo(){
-            let blogMasterInfo = await this.$githubApi.getBlogMasterInfo();
+            let blogMasterInfo = await this.$githubApi.getBloggerInfo();
             console.log('blogMasterInfo------>',blogMasterInfo);
 
         }
