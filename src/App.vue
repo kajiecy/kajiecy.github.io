@@ -8,5 +8,5 @@
 </template>
 
 <style lang="scss">
-  @import "//at.alicdn.com/t/font_1380783_cplplvlu05.css";
+  @import "//at.alicdn.com/t/font_1380783_ezmfgz9yepe.css";
 </style>

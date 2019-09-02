@@ -35,14 +35,18 @@
   #container{
     display: grid;
     grid-auto-flow: row dense;
-    grid-template-columns: [c1] 150px [c2] 150px [c3] 150px [c4];
-    grid-template-rows: [r1] 150px [r2] 150px [r3] 150px [r4];
-    grid-gap: 5px 5px;
-    grid-template-areas:  "header header header"
-                          "main main sidebar"
-                          "footer footer footer";
-    justify-items: stretch;
-    align-items: stretch;
+    grid-template-rows: repeat(16,46px);
+    grid-template-columns: repeat(1,100%);
+
+    /*grid-template-columns: [c1] 150px [c2] 150px [c3] 150px [c4];*/
+    /*grid-template-rows: [r1] 150px [r2] 150px [r3] 150px [r4];*/
+    /*grid-gap: 5px 5px;*/
+    /*grid-template-areas:  "header header header"*/
+    /*                      "main main sidebar"*/
+    /*                      "footer footer footer";*/
+    /*justify-items: stretch;*/
+    /*align-items: stretch;*/
+
 
     /*justify-content: space-around ;*/
     /*align-content: start | end | center | stretch | space-around | space-between | space-evenly;*/
@@ -56,15 +60,13 @@
 
   .item-1 {
     background-color: #ef342a;
+    grid-row: span 3;
     /*grid-column: 1 / 3;*/
     /*grid-row: 1 / 3;*/
-    grid-area: main;
   }
 
   .item-2 {
     background-color: #f68f26;
-    grid-column-start: 1;
-    grid-column-end: 3;
   }
 
   .item-3 {
@@ -89,13 +91,11 @@
 
   .item-8 {
     background-color: #d0e4a9;
-    grid-row-start: 5;
-    grid-column-start: 2;
+
   }
 
   .item-9 {
     background-color: #4dc7ec;
-    grid-row-start: 6;
-    grid-column-start: 3;
+
   }
 </style>
