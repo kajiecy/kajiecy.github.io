@@ -60,6 +60,23 @@
                             </a>
                         </div>
                     </div>
+                    <div class="blog-widget-wrap">
+                        <h3 class="blog-widget-title">标签云</h3>
+                        <div class="blog-widget tag-widget">
+                            <span class="tag-widget-item">
+                                #Vue
+                            </span>
+                            <span class="tag-widget-item">
+                                #TypeScript
+                            </span>
+                            <span class="tag-widget-item">
+                                #Java
+                            </span>
+                            <span class="tag-widget-item">
+                                #Linux
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="grid-body" style="height: 2000px">
@@ -121,7 +138,7 @@
                     position: fixed;
 
                     display: grid;
-                    grid-template-rows: repeat(16,48px);
+                    grid-template-rows: repeat(10,48px) 30px 30px;
                     grid-template-columns: repeat(1,100%);
                     grid-gap: 16px 0px;
                     /*justify-items:center;*/
@@ -250,6 +267,18 @@
                                     padding: 2px 5px;
                                     border-radius: 4px;
                                 }
+                            }
+                        }
+                        .tag-widget{
+                            padding: 10px 10px;
+                            .tag-widget-item{
+                                background-color: rgba(56,150,248,.15);
+                                color: rgba(56,150,248,.8);
+                                display: inline-block;
+                                padding: 3px 5px;
+                                margin: 6px 8px 6px 0;
+                                font-size: 12px;
+                                border-radius: 4px;
                             }
                         }
                     }
