@@ -35,27 +35,40 @@
                             <h3 class="blog-widget-title">社交按钮</h3>
                             <div class="blog-widget social-widget">
                                 <!-- github -->
-                                <a class="blog-widget-item" href="https://github.com/kajiecy/" target="_blank" style="color:#191717;background-color:rgba(25,23,23,.1)" rel="external nofollow noopener noreferrer" title="github">
+                                <a class="blog-widget-item" href="https://github.com/kajiecy/" target="_blank"
+                                   style="color:#191717;background-color:rgba(25,23,23,.1)"
+                                   rel="external nofollow noopener noreferrer" title="github">
                                     <i class="iconfont icon-github"></i>
                                 </a>
                                 <!--QQ-->
-                                <a class="blog-widget-item" href="http://wpa.qq.com/msgrd?v=3&amp;uin=851416347&amp;site=qq&amp;menu=yes" target="_blank" style="color:#f9ae08;background-color:rgba(249,174,8,.1)" rel="external nofollow noopener noreferrer" title="QQ">
+                                <a class="blog-widget-item"
+                                   href="http://wpa.qq.com/msgrd?v=3&amp;uin=851416347&amp;site=qq&amp;menu=yes"
+                                   target="_blank" style="color:#f9ae08;background-color:rgba(249,174,8,.1)"
+                                   rel="external nofollow noopener noreferrer" title="Click me!">
                                     <i class="iconfont icon-tubiao215"></i>
                                 </a>
                                 <!--微信-->
-                                <a class="blog-widget-item" href="JavaScript:void(0)" target="_blank" style="color:#7FD53E;background-color:rgba(14,71,161,.1)" rel="external nofollow noopener noreferrer" title="wechat:cy851416347">
+                                <a class="blog-widget-item" href="JavaScript:void(0)" target="_blank"
+                                   style="color:#7FD53E;background-color:rgba(14,71,161,.1)"
+                                   rel="external nofollow noopener noreferrer" title="wechat:cy851416347">
                                     <i class="iconfont icon-weixin"></i>
                                 </a>
                                 <!--简书-->
-                                <a class="blog-widget-item" href="https://www.jianshu.com/u/5636d2922139" target="_blank" style="color:#ffffff;background-color:#EA6F5A" rel="external nofollow noopener noreferrer" title="简书">
+                                <a class="blog-widget-item" href="https://www.jianshu.com/u/5636d2922139"
+                                   target="_blank" style="color:#ffffff;background-color:#EA6F5A"
+                                   rel="external nofollow noopener noreferrer" title="简书">
                                     <i class="iconfont jianshu">简</i>
                                 </a>
                                 <!--掘金-->
-                                <a class="blog-widget-item" href="https://juejin.im/user/5b8f2639e51d4538c4120c14" target="_blank" style="color:#006CFF;background-color:rgba(14,71,161,.1)" rel="external nofollow noopener noreferrer" title="掘金">
+                                <a class="blog-widget-item" href="https://juejin.im/user/5b8f2639e51d4538c4120c14"
+                                   target="_blank" style="color:#006CFF;background-color:rgba(14,71,161,.1)"
+                                   rel="external nofollow noopener noreferrer" title="掘金">
                                     <i class="iconfont icon-juejin"></i>
                                 </a>
                                 <!--战网-->
-                                <a class="blog-widget-item" href="JavaScript:void(0)" target="_blank" style="color:#3c57a4;background-color:rgba(60,87,164,.1)" rel="external nofollow noopener noreferrer" title="卡杰#12345">
+                                <a class="blog-widget-item" href="JavaScript:void(0)" target="_blank"
+                                   style="color:#3c57a4;background-color:rgba(60,87,164,.1)"
+                                   rel="external nofollow noopener noreferrer" title="卡杰#12345">
                                     <i class="iconfont icon-battle-net"></i>
                                 </a>
                             </div>
@@ -65,48 +78,55 @@
                         <div class="blog-widget-wrap blog-widget-tags">
                             <h3 class="blog-widget-title">标签云</h3>
                             <div class="blog-widget tag-widget">
-                            <span class="tag-widget-item">
+                            <span class="item">
                                 #Vue
                             </span>
-                                <span class="tag-widget-item">
+                                <span class="item">
                                 #TypeScript
                             </span>
-                                <span class="tag-widget-item">
+                                <span class="item">
                                 #Java
                             </span>
-                                <span class="tag-widget-item">
+                                <span class="item">
                                 #Linux
                             </span>
-                                <span class="tag-widget-item">
+                                <span class="item">
                                 #Linux
                             </span>
-                                <span class="tag-widget-item">
+                                <span class="item">
                                 #Linux
                             </span>
-                                <span class="tag-widget-item">
+                                <span class="item">
                                 #Linux
                             </span>
-                                <span class="tag-widget-item">
+                                <span class="item">
                                 #Linux
                             </span>
                             </div>
                         </div>
                         <div class="blog-widget-wrap blog-widget-tags">
                             <h3 class="blog-widget-title">文章分类</h3>
-                            <div class="blog-widget tag-widget">
-                            <span class="tag-widget-item">
-                                #Vue
-                            </span>
-                                <span class="tag-widget-item">
-                                #TypeScript
-                            </span>
-
+                            <div class="blog-widget type-widget">
+                                <div class="item">
+                                    技术  <span>1</span>
+                                </div>
+                                <div class="item">
+                                    生活<span>18</span>
+                                </div>
+                                <div class="item">
+                                    随心 <span>3</span>
+                                </div>
+                                <div class="item">
+                                    摄影 <span>2</span>
+                                </div>
                             </div>
+                        </div>
+
+                        <div style="text-align: right;color: #9ca2a8;">
+                            © 2019 卡杰(kajiecy) Powered by <a class="blog-widget-item" href="https://github.com/kajiecy/" target="_blank" style="color:#258EFB;text-decoration: none" title="github">Myself</a>
                         </div>
                     </div>
                 </div>
-
-
             </div>
             <div class="grid-body" style="height: 2000px">
                 <div style="height: 60px">1</div>
@@ -161,36 +181,35 @@
             .left-info {
                 display: inline-block;
                 width: 240px;
-                .left-info-fix{
-                    position: fixed;
 
-                    .left-info-body{
+                .left-info-fix {
+                    position: fixed;
+                    height: 100vh;
+                    overflow-y: auto;
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                    .left-info-body {
                         width: 240px;
 
                         padding: 0 20px;
 
-                        /*height: 100vh;*/
-                        /*overflow-y: auto;*/
-                        /*&::-webkit-scrollbar {*/
-                        /*    display: none;*/
-                        /*}*/
+
 
 
                         display: grid;
-                        grid-template-rows: repeat(7,48px) repeat(2,42px) ;
-                        grid-template-columns: repeat(1,100%);
+                        grid-template-rows: repeat(7, 48px) repeat(2, 42px);
+                        grid-template-columns: repeat(1, 100%);
                         grid-gap: 16px 0px;
-                        /*justify-items:center;*/
-                        /*align-items: center;*/
                         padding-top: 20px;
-
-
                         /*左侧头像样式*/
                         .user-avatar {
                             grid-row: span 3;
                             justify-self: center;
                             align-self: center;
-                            .img-div{
+
+                            .img-div {
                                 height: 150px;
                                 width: 150px;
                                 z-index: 4;
@@ -201,10 +220,12 @@
                                 box-shadow: 0 0.3rem 2rem rgba(161, 177, 204, .6);
                             }
                         }
+
                         /*博客统计数据样式*/
                         .blog-count {
                             justify-self: center;
                             align-self: center;
+
                             div {
                                 display: inline-block;
                                 color: #909399;
@@ -217,12 +238,6 @@
                                 }
                             }
                         }
-                        /*切换按钮样式*/
-                        /*.blog-function-list {*/
-                        /*    list-style: none;*/
-                        /*    grid-row: span 2;*/
-                        /*    !*background-color: transparent;*!*/
-                        /*}*/
 
                         .blog-function-list-item {
                             text-decoration: none;
@@ -259,24 +274,65 @@
                         }
 
 
-
                     }
-                    .right-info-bottom{
+
+                    .right-info-bottom {
                         width: 240px;
                         padding: 0 20px;
-                        .blog-widget-wrap{
+
+                        .blog-widget-wrap {
                             margin: 16px 0;
                         }
+
+                        .tag-widget {
+                            padding: 10px 10px;
+
+                            .item {
+                                background-color: rgba(56, 150, 248, .15);
+                                color: rgba(56, 150, 248, .8);
+                                display: inline-block;
+                                padding: 3px 5px;
+                                margin: 6px 4px 6px 4px;
+                                font-size: 12px;
+                                border-radius: 4px;
+                            }
+                        }
+
+                        .type-widget {
+                            .item{
+
+                                padding: 10px 10px;
+                                border-bottom: 1px solid rgba(161, 177, 204, .2);
+                                &:last-child{
+                                    border-bottom: 0;
+                                }
+                                span{
+                                    padding: 5px;
+                                    display: inline-block;
+                                    background-color:rgba(56, 150, 248, .9);
+                                    color: white;
+                                    float: right;
+                                    width: 25px;
+                                    height: 25px;
+                                    text-align: center;
+                                    border-radius: 50px;
+                                    position: relative;
+                                    top: -3px;
+                                }
+                            }
+                        }
                     }
+
                     /*社交按钮样式*/
-                    .blog-widget-wrap{
+                    .blog-widget-wrap {
                         grid-row: span 3;
-                        box-shadow: 0 0 1rem rgba(161,177,204,.4);
+                        box-shadow: 0 0 1rem rgba(161, 177, 204, .4);
                         background-color: #fff;
                         border-radius: 10px;
                         overflow: hidden;
                         white-space: normal;
-                        h3{
+
+                        h3 {
                             text-align: left;
                             font-size: 1.1em;
                             font-weight: 400;
@@ -285,53 +341,48 @@
                             margin: 0;
                             height: 45px;
                         }
-                        .social-widget{
+                        .item{
+                            cursor: pointer;
+                        }
+                        .social-widget {
                             height: calc(100% - 45px);
                             display: grid;
-                            grid-template-columns: repeat(4,36px);
-                            grid-template-rows: repeat(2,36px);
-                            place-content:space-evenly;
-                            .blog-widget-item{
+                            grid-template-columns: repeat(4, 36px);
+                            grid-template-rows: repeat(2, 36px);
+                            place-content: space-evenly;
+
+                            .blog-widget-item {
                                 display: inline-block;
                                 /*justify-self: center;*/
                                 /*align-self: center;*/
                                 text-decoration: none;
                                 border-radius: 50%;
                                 text-align: center;
-                                i{
+
+                                i {
                                     font-size: 1.2em;
                                     position: relative;
                                     top: 9px;
                                 }
-                                .jianshu{
+
+                                .jianshu {
                                     font-size: 1.1em;
                                     top: 7px;
                                 }
 
-                                .hint-title{
+                                .hint-title {
                                     color: white;
-                                    background-color: rgba(0,0,0,0.5);
+                                    background-color: rgba(0, 0, 0, 0.5);
                                     padding: 2px 5px;
                                     border-radius: 4px;
                                 }
                             }
                         }
-                        &.blog-widget-tags{
+
+                        &.blog-widget-tags {
                             grid-row: span 1;
                         }
-                        .tag-widget{
-                            padding: 10px 10px;
 
-                            .tag-widget-item{
-                                background-color: rgba(56,150,248,.15);
-                                color: rgba(56,150,248,.8);
-                                display: inline-block;
-                                padding: 3px 5px;
-                                margin: 6px 4px 6px 4px;
-                                font-size: 12px;
-                                border-radius: 4px;
-                            }
-                        }
                     }
                 }
 
