@@ -9,7 +9,6 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
       component: Home,
       children: [
         {
@@ -37,6 +36,12 @@ export default new Router({
       name: 'api_test',
       // @ts-ignore
       component: () => import(/* webpackChunkName: "about" */ '@/views/ApiTest.vue')
+    },
+    {
+      path: '/test',
+      name: 'test',
+      // @ts-ignore
+      component: () => import(/* webpackChunkName: "about" */ '@/views/test/test.vue')
     },
   ]
 })

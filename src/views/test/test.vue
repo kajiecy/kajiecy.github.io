@@ -1,19 +1,10 @@
 <template>
-  <div class="about">
-    <span>foo</span>
-    <div id="container">
-      <div class="item item-1">1</div>
-      <div class="item item-2">2</div>
-      <div class="item item-3">3</div>
-      <div class="item item-4">4</div>
-      <div class="item item-5">5</div>
-      <div class="item item-6">6</div>
-      <div class="item item-7">7</div>
-      <div class="item item-8">8</div>
-      <div class="item item-9">9</div>
-    </div>
-    <span>bar</span>
+<div style="height: 100%;overflow: hidden">
+  <div class="inline-block" style="background-color: #2ab1f0;width: 200px;height: 100vh;overflow: auto">
+    <div v-for="item in 100">{{item}}</div>
   </div>
+
+</div>
 </template>
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
@@ -22,7 +13,7 @@
     components: {
     },
   })
-  export default class About extends Vue {
+  export default class test extends Vue {
 
   }
 </script>

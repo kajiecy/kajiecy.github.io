@@ -7,5 +7,5 @@
 </template>
 
 <style lang="scss">
-  @import "//at.alicdn.com/t/font_1380783_ezmfgz9yepe.css";
+  @import "//at.alicdn.com/t/font_1380783_ueawbhizjh.css";
 </style>
