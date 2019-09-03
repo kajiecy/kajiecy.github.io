@@ -78,26 +78,25 @@
                         <div class="blog-widget-wrap blog-widget-tags">
                             <h3 class="blog-widget-title">标签云</h3>
                             <div class="blog-widget tag-widget">
-                            <span class="item">
-                                #Vue
-                            </span>
                                 <span class="item">
-                                #TypeScript
-                            </span>
+                                    #Vue
+                                </span>
                                 <span class="item">
-                                #Java
-                            </span>
+                                    #TypeScript
+                                </span>
                                 <span class="item">
-                                #Linux
-                            </span>
-
+                                    #Java
+                                </span>
+                                <span class="item">
+                                    #Linux
+                                </span>
                             </div>
                         </div>
                         <div class="blog-widget-wrap blog-widget-tags">
                             <h3 class="blog-widget-title">文章分类</h3>
                             <div class="blog-widget type-widget">
                                 <div class="item">
-                                    技术  <span>1</span>
+                                    技术 <span>1</span>
                                 </div>
                                 <div class="item">
                                     生活<span>18</span>
@@ -110,15 +109,16 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div style="text-align: right;color: #9ca2a8;">
-                            © 2019 卡杰(kajiecy) Powered by <a class="blog-widget-item" href="https://github.com/kajiecy/" target="_blank" style="color:#258EFB;text-decoration: none" title="github">Myself</a>
+                        <div style="text-align: right;color: #9ca2a8;" class="mb20">
+                            © 2019 卡杰(kajiecy) Powered by <a class="blog-widget-item" href="https://github.com/kajiecy/"
+                                                             target="_blank" style="color:#258EFB;text-decoration: none"
+                                                             title="github">Myself</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="grid-body" style="height: 2000px">
-                <div style="height: 60px">1</div>
+            <div class="grid-body">
+                <router-view></router-view>
             </div>
         </div>
     </div>
@@ -175,6 +175,7 @@
                     position: fixed;
                     height: 100vh;
                     overflow-y: auto;
+
                     &::-webkit-scrollbar {
                         display: none;
                     }
@@ -183,8 +184,6 @@
                         width: 240px;
 
                         padding: 0 20px;
-
-
 
 
                         display: grid;
@@ -288,17 +287,19 @@
                         }
 
                         .type-widget {
-                            .item{
+                            .item {
 
                                 padding: 10px 10px;
                                 border-bottom: 1px solid rgba(161, 177, 204, .2);
-                                &:last-child{
+
+                                &:last-child {
                                     border-bottom: 0;
                                 }
-                                span{
+
+                                span {
                                     padding: 5px;
                                     display: inline-block;
-                                    background-color:rgba(56, 150, 248, .9);
+                                    background-color: rgba(56, 150, 248, .9);
                                     color: white;
                                     float: right;
                                     width: 25px;
@@ -330,9 +331,11 @@
                             margin: 0;
                             height: 45px;
                         }
-                        .item{
+
+                        .item {
                             cursor: pointer;
                         }
+
                         .social-widget {
                             height: calc(100% - 45px);
                             display: grid;
@@ -378,12 +381,12 @@
 
             }
 
-            .grid-body {
-                flex: 0 0 960px;
-                display: inline-grid;
-                grid-template-columns: repeat(12, 1fr);
-                grid-gap: 16px 32px;
-            }
+            /*.grid-body {*/
+            /*    flex: 0 0 960px;*/
+            /*    display: inline-grid;*/
+            /*    grid-template-columns: repeat(12, 1fr);*/
+            /*    grid-gap: 16px 32px;*/
+            /*}*/
         }
 
     }

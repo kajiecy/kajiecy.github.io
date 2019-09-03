@@ -15,6 +15,7 @@
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
+    // @ts-ignore
     import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
     import GithubApi from '@/util/GithubApi.ts'; // @ is an alias to /src
 
