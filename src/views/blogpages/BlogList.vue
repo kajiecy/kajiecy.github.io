@@ -44,6 +44,7 @@
         created(){
             this.addScrollListen();
             this.searchIssuesList();
+            console.log(this.$route.query.tag);
         }
         async searchIssuesList(){
             this.issuesList = await this.$githubApi.getIssuesList({milestone:<string>this.$route.query.type,labels:<string>this.$route.query.tag,page:this.pageNum,perPage:this.pageSize});

@@ -87,7 +87,7 @@ class GithubApi {
      * @param page
      * @param perPage
      */
-    async labelsMilestones4Repository({state,page,perPage}:{state?:string,page?:number,perPage?:number}={}){
+    async milestonesList4Repository({state,page,perPage}:{state?:string,page?:number,perPage?:number}={}){
         return new Promise(async (resolve, reject) => {
             let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.labelsMilestones4Repository,this);
             page = page||1;

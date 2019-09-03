@@ -45,7 +45,7 @@
             console.log('labels---->',labels);
         }
         async getMilestones(){
-            let milestones = await this.$githubApi.labelsMilestones4Repository();
+            let milestones = await this.$githubApi.milestonesList4Repository();
             console.log('milestones---->',milestones);
         }
         async getIssuesList(){

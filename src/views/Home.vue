@@ -1,5 +1,9 @@
 <template>
     <div class="home">
+<!--        {{$store.state.labelsList}}-->
+<!--        <div>11111111111</div>-->
+<!--        {{$store.state.milestonesList}}-->
+
         <div class="home-background-div"></div>
         <div class="home-body">
             <div class="left-info">
@@ -24,9 +28,9 @@
                                 10
                             </div>
                         </div>
-                        <a class="blog-function-list-item active" href="javascript:void(0)" title="我的首页">
+                        <span class="blog-function-list-item active" @click="$router.push('/')" title="我的首页">
                             <div class="list-item-content"><i class="item-icon iconfont icon-shouye"></i>我的首页</div>
-                        </a>
+                        </span>
                         <a class="blog-function-list-item " href="javascript:void(0)" title="关于博客">
                             <div class="list-item-content"><i class="item-icon iconfont icon-about"></i>关于博客</div>
                         </a>
@@ -78,17 +82,8 @@
                         <div class="blog-widget-wrap blog-widget-tags">
                             <h3 class="blog-widget-title">标签云</h3>
                             <div class="blog-widget tag-widget">
-                                <span class="item">
-                                    #Vue
-                                </span>
-                                <span class="item">
-                                    #TypeScript
-                                </span>
-                                <span class="item">
-                                    #Java
-                                </span>
-                                <span class="item">
-                                    #Linux
+                                <span class="item" v-for="(item,index) in $store.state.labelsList" :style="{backgroundColor: '#'+item.color}" @click="clickTag(item.name)">
+                                    # {{item.name}}
                                 </span>
                             </div>
                         </div>
@@ -118,14 +113,21 @@
                 </div>
             </div>
             <div class="grid-body">
-                <router-view></router-view>
+                {{$store.getters.getRouter}}
+                <router-view :key="key()"></router-view>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from 'vue-property-decorator';
+    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
+
+    Component.registerHooks([
+        'beforeRouteEnter',
+        'beforeRouteLeave',
+        'beforeRouteUpdate',
+    ])
 
     @Component({
         components: {},
@@ -137,12 +139,16 @@
         }
 
         mounted() {
-            (async () => {
-                let bloggerInfo = await this.$githubApi.getBloggerInfo();
-                this.bloggerInfo = bloggerInfo;
-            })()
+            this.$githubApi.getBloggerInfo().then((bloggerInfo)=>this.bloggerInfo = bloggerInfo);
+            this.$githubApi.labelsList4Repository().then((labelsList)=>this.$store.commit('setLabelsList',labelsList));
+            this.$githubApi.milestonesList4Repository().then((milestonesList)=>this.$store.commit('setMilestonesList',milestonesList))
         }
-
+        clickTag(name:string){
+            this.$router.push({name:'blog_list',query:{tag:name}});
+        }
+        key() {
+            return this.$route.name !== undefined? this.$route.name + +new Date(): "this.$route" + +new Date()
+        }
     }
 </script>
 <style lang="scss">
@@ -283,6 +289,7 @@
                                 margin: 6px 4px 6px 4px;
                                 font-size: 12px;
                                 border-radius: 4px;
+                                color: white;
                             }
                         }
 
