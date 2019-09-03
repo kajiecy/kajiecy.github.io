@@ -113,7 +113,6 @@
                 </div>
             </div>
             <div class="grid-body">
-                {{$store.getters.getRouter}}
                 <router-view :key="key()"></router-view>
             </div>
         </div>
