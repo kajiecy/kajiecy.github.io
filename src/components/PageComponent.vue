@@ -1,40 +1,17 @@
 <!--  Create by YangChen on 2019/9/4 17:10  -->
 <template>
-    <div>
-        <div class="blog-page-nav">
-            <span class="page-item ">1</span>
-            <span class="page-item page-ignore">...</span>
-            <span class="page-item ">4</span>
-            <span class="page-item current">5</span>
-            <span class="page-item ">6</span>
-            <span class="page-item page-ignore">...</span>
-            <span class="page-item ">10</span>
-            <span class="page-item page-next"><i class="iconfont icon-next"></i></span>
-        </div>
-        <div class="blog-page-nav">
-            <span class="page-item ">1</span>
-            <span class="page-item current">2</span>
-            <span class="page-item ">3</span>
-            <span class="page-item ">4</span>
-            <span class="page-item ">5</span>
-            <span class="page-item page-ignore">...</span>
-            <span class="page-item ">7</span>
-            <span class="page-item page-next"><i class="iconfont icon-next"></i></span>
-        </div>
+    <div class="blog-page-nav">
+        <template v-for="(item,index) in totalPage">
+            <span v-if="checkShow(item,'lt')==='show'" class="page-item" @click="pageNum = item">{{item}}</span>
+            <span v-else-if="checkShow(item,'lt')==='ignore'" class="page-item page-ignore">...</span>
+        </template>
+        <span class="page-item current">{{pageNum}}</span>
 
-        <div class="blog-page-nav">
-            <template v-for="(item,index) in totalPage">
-                <span v-if="checkShow(item,'lt')==='show'" class="page-item" @click="pageNum = item">{{item}}</span>
-                <span v-else-if="checkShow(item,'lt')==='ignore'" class="page-item page-ignore">...</span>
-            </template>
-            <span class="page-item current">{{pageNum}}</span>
-
-            <template v-for="(item,index) in totalPage">
-                <span v-if="checkShow(item,'gt')==='show'" class="page-item" @click="pageNum = item">{{item}}</span>
-                <span v-else-if="checkShow(item,'gt')==='ignore'" class="page-item page-ignore">...</span>
-            </template>
-            <span class="page-item page-next" @click="pageNum++"><i class="iconfont icon-next"></i></span>
-        </div>
+        <template v-for="(item,index) in totalPage">
+            <span v-if="checkShow(item,'gt')==='show'" class="page-item" @click="pageNum = item">{{item}}</span>
+            <span v-else-if="checkShow(item,'gt')==='ignore'" class="page-item page-ignore">...</span>
+        </template>
+        <span class="page-item page-next" @click="pageNum++"><i class="iconfont icon-next"></i></span>
     </div>
 
 </template>
@@ -51,65 +28,41 @@
 
         pageNum: number = 1;
         pageSize: number = 10;
-        total: number = 70;
+        total: number = 60;
         totalPage: number = Math.ceil(this.total / this.pageSize);
 
         checkShow(curNum: number, type: string) {
             if (type === 'lt') {
-                let hasIgnore = false;
                 if (curNum < this.pageNum) {
-                    if (curNum == 1) {
+                    if (curNum == 1||this.totalPage <= 7||this.pageNum <= 4||curNum === this.pageNum - 1) {
                         return 'show'
-                    }
-                    if (this.totalPage <= 7) {
-                        return 'show';
-                    }
-
-                    if (this.pageNum <= 4) {
-                        return 'show';
-                    } else {
-                        if (curNum === this.pageNum - 1) {
-                            return 'show'
-                        } else {
-                            //如果右边的数量达不到4时 右边多渲染几个 补齐7个
-                            let rightLackNum = 3 - (this.totalPage - this.pageNum);
-                            console.log(rightLackNum)
-                            if (rightLackNum > 0) {
-                                if (curNum >= this.pageNum - rightLackNum - 1) {
-                                    return "show"
-                                }
-                            }
-                            if (curNum - 1 === 1) {
-                                return 'ignore'
+                    }else {
+                        //如果右边的数量达不到4时 右边多渲染几个 补齐7个
+                        let rightLackNum = 3 - (this.totalPage - this.pageNum);
+                        if (rightLackNum > 0) {
+                            if (curNum >= this.pageNum - rightLackNum - 1) {
+                                return "show"
                             }
                         }
+                        if (curNum - 1 === 1) {
+                            return 'ignore'
+                        }
                     }
-                    // }
                 }
             } else if (type === 'gt') {
                 if (curNum > this.pageNum) {
-                    if (curNum == this.totalPage) {
+                    if (curNum == this.totalPage||this.totalPage <= 7||this.pageNum >= this.totalPage - 3||curNum === this.pageNum + 1) {
                         return 'show'
-                    }
-                    if (this.totalPage <= 7) {
-                        return 'show';
-                    }
-                    if (this.pageNum >= this.totalPage - 3) {
-                        return 'show';
                     } else {
-                        if (curNum === this.pageNum + 1) {
-                            return 'show'
-                        } else {
-                            //如果左边的数量达不到4时 右边多渲染几个 补齐7个
-                            let leftLackNum = 4 - this.pageNum;
-                            if (leftLackNum > 0) {
-                                if (curNum <= this.pageNum + leftLackNum + 1) {
-                                    return "show"
-                                }
+                        //如果左边的数量达不到4时 右边多渲染几个 补齐7个
+                        let leftLackNum = 4 - this.pageNum;
+                        if (leftLackNum > 0) {
+                            if (curNum <= this.pageNum + leftLackNum + 1) {
+                                return "show"
                             }
-                            if (curNum + 1 === this.totalPage) {
-                                return 'ignore'
-                            }
+                        }
+                        if (curNum + 1 === this.totalPage) {
+                            return 'ignore'
                         }
                     }
 
