@@ -55,7 +55,6 @@
         async getBlogMasterInfo(){
             let blogMasterInfo = await this.$githubApi.getBloggerInfo();
             console.log('blogMasterInfo------>',blogMasterInfo);
-
         }
     }
 </script>

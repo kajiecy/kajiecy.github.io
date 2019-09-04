@@ -10,6 +10,7 @@ enum GithubUrlEnum {
     labelsMilestones4Repository = 'https://api.github.com/repos/:owner/:repo/milestones', // 获取里程碑列表
     getIssuesList = 'https://api.github.com/repos/:owner/:repo/issues', // 获取博客信息
     getUserInfo = 'https://api.github.com/users/:owner',
+    getMdContent = 'https://api.github.com/markdown',
 }
 
 class GithubApi {
@@ -120,6 +121,12 @@ class GithubApi {
         return new Promise(async (resolve, reject) => {
             let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.getUserInfo,this);
             let res = await this._get(realUrl,{});
+            resolve(res)
+        });
+    }
+    async getMdContent({text}:{text:string}={text:''}){
+        return new Promise(async (resolve, reject) => {
+            let res = await this._post(GithubUrlEnum.getMdContent,{context: "github/gollum",mode: "markdown",text: text});
             resolve(res)
         });
     }

@@ -18,10 +18,10 @@
                     <span class="tag-item"><i class="iconfont icon-biaoqian"></i>Vue</span>
                     <span class="tag-item"><i class="iconfont icon-leimupinleifenleileibie"></i>技术</span>
                 </div>
-                <div class="describe-div">
-                    7月18日发生京都动画纵火案，当时听到消息，我心里先是想着“绝对是假的”，不过已经实锤了，只能面对现实了。
-                    事情已经发生了，我也做不了什么，发个博文记录一下吧。
-                </div>
+<!--                <div class="describe-div">-->
+<!--                    7月18日发生京都动画纵火案，当时听到消息，我心里先是想着“绝对是假的”，不过已经实锤了，只能面对现实了。-->
+<!--                    事情已经发生了，我也做不了什么，发个博文记录一下吧。-->
+<!--                </div>-->
             </div>
         </template>
         <nav class="blog-page-nav">
