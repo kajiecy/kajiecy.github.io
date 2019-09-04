@@ -31,9 +31,9 @@
                         <span class="blog-function-list-item active" @click="$router.push('/')" title="我的首页">
                             <div class="list-item-content"><i class="item-icon iconfont icon-shouye"></i>我的首页</div>
                         </span>
-                        <a class="blog-function-list-item " href="javascript:void(0)" title="关于博客">
+                        <span class="blog-function-list-item " href="javascript:void(0)" title="关于博客">
                             <div class="list-item-content"><i class="item-icon iconfont icon-about"></i>关于博客</div>
-                        </a>
+                        </span>
 
                         <div class="blog-widget-wrap">
                             <h3 class="blog-widget-title">社交按钮</h3>
@@ -82,7 +82,7 @@
                         <div class="blog-widget-wrap blog-widget-tags">
                             <h3 class="blog-widget-title">标签云</h3>
                             <div class="blog-widget tag-widget">
-                                <span class="item" v-for="(item,index) in $store.state.labelsList" :style="{backgroundColor: '#'+item.color}" @click="clickTag(item.name)">
+                                <span class="item" v-for="(item,index) in $store.state.labelsList" :style="{backgroundColor: '#'+item.color}" @click="$router.push({name:'blog_list',query:{tag:item.name}})">
                                     # {{item.name}}
                                 </span>
                             </div>
@@ -90,17 +90,8 @@
                         <div class="blog-widget-wrap blog-widget-tags">
                             <h3 class="blog-widget-title">文章分类</h3>
                             <div class="blog-widget type-widget">
-                                <div class="item">
-                                    技术 <span>1</span>
-                                </div>
-                                <div class="item">
-                                    生活<span>18</span>
-                                </div>
-                                <div class="item">
-                                    随心 <span>3</span>
-                                </div>
-                                <div class="item">
-                                    摄影 <span>2</span>
+                                <div class="item" v-for="(item,index) in $store.state.milestonesList"  @click="$router.push({name:'blog_list',query:{milestone:item.number}})">
+                                    {{item.title}} <span>{{item.open_issues}}</span>
                                 </div>
                             </div>
                         </div>
@@ -108,12 +99,13 @@
                             © 2019 卡杰(kajiecy) Powered by <a class="blog-widget-item" href="https://github.com/kajiecy/"
                                                              target="_blank" style="color:#258EFB;text-decoration: none"
                                                              title="github">Myself</a>
+
                         </div>
                     </div>
                 </div>
             </div>
             <div class="grid-body">
-                <router-view :key="key()"></router-view>
+                <router-view :key="routeKey"></router-view>
             </div>
         </div>
     </div>
@@ -133,21 +125,20 @@
     })
     export default class Home extends Vue {
         bloggerInfo: any = {};
-
+        routeKey:number = Math.random();
         created() {
         }
-
         mounted() {
             this.$githubApi.getBloggerInfo().then((bloggerInfo)=>this.bloggerInfo = bloggerInfo);
-            this.$githubApi.labelsList4Repository().then((labelsList)=>this.$store.commit('setLabelsList',labelsList));
+            // @ts-ignore
+            this.$githubApi.labelsList4Repository().then((labelsList)=>this.$store.commit('setLabelsList',labelsList.filter((item)=>{return item.name.indexOf(':img')===-1})));
             this.$githubApi.milestonesList4Repository().then((milestonesList)=>this.$store.commit('setMilestonesList',milestonesList))
         }
-        clickTag(name:string){
-            this.$router.push({name:'blog_list',query:{tag:name}});
+        @Watch("$route", {deep: false})
+        watchTopStatus(newValue: any, oldValue: any) {
+            this.routeKey = Math.random();
         }
-        key() {
-            return this.$route.name !== undefined? this.$route.name + +new Date(): "this.$route" + +new Date()
-        }
+
     }
 </script>
 <style lang="scss">
@@ -236,7 +227,7 @@
                             text-decoration: none;
                             color: #9ca2a8;
                             text-align: center;
-
+                            cursor: pointer;
                             .list-item-content {
                                 padding-top: 14px;
                                 padding-bottom: 14px;

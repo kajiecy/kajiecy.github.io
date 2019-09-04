@@ -3,25 +3,24 @@
         <template v-for="(item,index) in issuesList">
             <div class="blog-list-item">
                 <div class="img-div">
-
-                    <!--                    <img src="http://qiniu.kajie88.com/539d5ba608774c0f99693f2d8c031d3a_th.jpg" width="100%" height="100%" alt="">-->
                     <img src="http://qiniu.kajie88.com/e6f4b13bb6cd1d6a109e1ae85120f33f.jpg" width="100%" height="100%"
                          alt="">
                     <div class="title-div">
-                        按照中国的传统农历来说
+                        {{item.title}}
                     </div>
                 </div>
                 <div class="tag-div">
-                    <span class="tag-item"><i class="iconfont icon-riqi"></i>2019年08月25日</span>
-                    <span class="tag-item"><i class="iconfont icon-riqi"></i>425字</span>
-                    <span class="tag-item"><i class="iconfont icon-shijian"></i>大概 1 分钟</span>
-                    <span class="tag-item"><i class="iconfont icon-biaoqian"></i>Vue</span>
+                    <span class="tag-item" style="background-color: #258EFB"><i class="iconfont icon-riqi"></i>{{formatDate(item.created_at)}}</span>
+                    <span class="tag-item" style="background-color: #E6A23C"><i class="iconfont icon-riqi"></i>{{getCharCount(item.body)}}字</span>
+                    <span class="tag-item" style="background-color: #FF4E6A"><i class="iconfont icon-shijian"></i>大概 {{calcReadTime(item.body)}} 分钟</span>
+                    <span class="tag-item blog-labels"
+                          v-for="(cItem) in item.labels.filter((ccItem)=>ccItem.name.indexOf(':img')===-1)"
+                          @click="$router.push({name:'blog_list',query:{tag:cItem.name}})"
+                          :style="{backgroundColor:'#'+cItem.color}">
+                        <i class="iconfont icon-biaoqian"></i>{{cItem.name}}
+                    </span>
                     <span class="tag-item"><i class="iconfont icon-leimupinleifenleileibie"></i>技术</span>
                 </div>
-<!--                <div class="describe-div">-->
-<!--                    7月18日发生京都动画纵火案，当时听到消息，我心里先是想着“绝对是假的”，不过已经实锤了，只能面对现实了。-->
-<!--                    事情已经发生了，我也做不了什么，发个博文记录一下吧。-->
-<!--                </div>-->
             </div>
         </template>
         <nav class="blog-page-nav">
@@ -44,10 +43,9 @@
         created(){
             this.addScrollListen();
             this.searchIssuesList();
-            console.log(this.$route.query.tag);
         }
         async searchIssuesList(){
-            this.issuesList = await this.$githubApi.getIssuesList({milestone:<string>this.$route.query.type,labels:<string>this.$route.query.tag,page:this.pageNum,perPage:this.pageSize});
+            this.issuesList = await this.$githubApi.getIssuesList({milestone:<string>this.$route.query.milestone,labels:<string>this.$route.query.tag,page:this.pageNum,perPage:this.pageSize});
         }
         addScrollListen(){
             window.onscroll = function(){
@@ -82,6 +80,21 @@
             // 分类中的图片
             // 默认图片
         }
+        getCharCount(text:string){
+            let reg = /[\u4e00-\u9fa5]/g;
+            let reg2 = /[a-zA-Z]/g;
+            let count1 = text.match(reg)?text.match(reg)!.length:0;
+            let count2 = text.match(reg2)?text.match(reg2)!.length:0
+            return (count1+count2/2).toFixed(0);
+        }
+        calcReadTime(text:string){
+            let reg = /[\u4e00-\u9fa5]/g;
+            let reg2 = /[a-zA-Z]/g;
+            let count1 = text.match(reg)?text.match(reg)!.length:0;
+            let count2 = text.match(reg2)?text.match(reg2)!.length:0
+            // return ((count1+count2) / 500).toFixed(0);
+            return Math.ceil((count1+count2) / 500);
+        }
     }
 </script>
 <style lang="scss" scoped>
@@ -105,6 +118,7 @@
             .title-div {
                 position: relative;
                 top: -55px;
+                line-height: 42px;
                 left: 0;
                 font-size: 32px;
                 color: white;
@@ -117,10 +131,12 @@
                 display: inline-block;
                 padding: 5px 10px 5px 10px;
                 color: white;
-                background-color: #42b983;
+                background-color: #eeeeee;
                 margin: 10px 5px 10px 0;
                 border-radius: 6px;
-
+                &.blog-labels{
+                    cursor: pointer;
+                }
                 i {
                     display: inline-block;
                     margin-right: 5px;

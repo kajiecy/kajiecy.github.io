@@ -20,7 +20,7 @@ export default new Vuex.Store({
         },
         setMilestonesList(state,milestonesList:any){
             // @ts-ignore
-            state.milestonesList.splice(0,state.labelsList.length,...milestonesList);
+            state.milestonesList.splice(0,state.milestonesList.length,...milestonesList);
         },
     },
     getters:{

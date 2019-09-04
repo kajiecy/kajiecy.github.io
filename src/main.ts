@@ -20,6 +20,26 @@ Vue.prototype.$githubApi = new GithubApi({
   issueNumber:'1'
 });
 
+Vue.mixin({
+  methods: {
+    formatDate(val, n) {
+      let padDate = function (va:any) {
+        va = va < 10 ? "0" + va : va;
+        return va;
+      };
+      let value = new Date(val),
+          year = value.getFullYear(),
+          month = padDate(value.getMonth() + 1),
+          day = padDate(value.getDate()),
+          hour = padDate(value.getHours()),
+          minutes = padDate(value.getMinutes()),
+          seconds = padDate(value.getSeconds());
+      if (n) return year + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds;
+      else return (year + "年" + month + "月" + day + "日");
+    }
+  }
+});
+
 new Vue({
   router,
   store,
