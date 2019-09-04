@@ -2,9 +2,8 @@
     <div class="blog-list">
         <template v-for="(item,index) in issuesList">
             <div class="blog-list-item">
-                <div class="img-div">
-                    <img src="http://qiniu.kajie88.com/e6f4b13bb6cd1d6a109e1ae85120f33f.jpg" width="100%" height="100%"
-                         alt="">
+                <div class="img-div" @click="$router.push({name:'blog_content',query:{issueNumber:item.number}})">
+                    <img :src="getBlogImg(item)" width="100%" height="100%">
                     <div class="title-div">
                         {{item.title}}
                     </div>
@@ -67,18 +66,23 @@
             if(blogItem.labels&&blogItem.labels.length){
                 // 取最后一个有图片的标签
                 blogItem.labels.forEach((item:any)=>{
-                    imgUrl = item.url;
+                    if(item.name.indexOf(':img')===0){
+                        imgUrl = this.$store.state.qiniuDomainName +item.name.substring(5);
+                    }
                 })
+                console.log(imgUrl)
             }
-            if(!imgUrl&&blogItem.milestone&&blogItem.milestone.length){
+            if(!imgUrl&&blogItem.milestone){
                 // 取最后一个有图片的分类
-                blogItem.milestone.forEach((item:any)=>{
-                    imgUrl = item.url;
-                })
+                imgUrl = blogItem.milestone.description;
             }
             // 如果标签中的图片
             // 分类中的图片
             // 默认图片
+            if(!imgUrl){
+                imgUrl = this.$store.state.defaultImg;
+            }
+            return imgUrl;
         }
         getCharCount(text:string){
             let reg = /[\u4e00-\u9fa5]/g;
@@ -106,13 +110,19 @@
 
         .blog-list-item {
             margin-bottom: 20px;
+            box-shadow: 0 0 1rem rgba(161, 177, 204, .5);
+            border-radius: 10px;
+            overflow: hidden;
 
             .img-div {
                 height: 500px;
-                border-radius: 10px;
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;
                 overflow: hidden;
                 cursor: pointer;
                 user-select: none;
+                /*box-shadow: 0 0 1rem rgba(161, 177, 204, .4);*/
+
             }
 
             .title-div {
@@ -123,28 +133,28 @@
                 font-size: 32px;
                 color: white;
                 padding: 5px 10px;
-                background: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.4)); /* 标准的语法 */
+                background: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.4));
                 user-select: auto;
             }
-
-            .tag-item {
-                display: inline-block;
-                padding: 5px 10px 5px 10px;
-                color: white;
-                background-color: #eeeeee;
-                margin: 10px 5px 10px 0;
-                border-radius: 6px;
-                &.blog-labels{
-                    cursor: pointer;
-                }
-                i {
+            .tag-div{
+                padding: 5px 10px 10px 15px;
+                .tag-item {
                     display: inline-block;
-                    margin-right: 5px;
+                    padding: 5px 10px 5px 10px;
+                    color: white;
+                    background-color: #eeeeee;
+                    margin: 10px 5px 10px 0;
+                    border-radius: 6px;
+                    &.blog-labels{
+                        cursor: pointer;
+                    }
+                    i {
+                        display: inline-block;
+                        margin-right: 5px;
+                    }
+                    user-select: none;
                 }
-
-                user-select: none;
             }
-
             .describe-div {
                 font-size: 14px;
             }
@@ -161,6 +171,8 @@
                 text-align: center;
                 background-color: #e4e3e6;
                 color: #777;
+                user-select: none;
+                cursor: pointer;
             }
             .current{
                 color: #fff;

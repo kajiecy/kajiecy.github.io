@@ -23,6 +23,12 @@ let router = new Router({
           // @ts-ignore
           component: () => import(/* webpackChunkName: "about" */ '@/views/blogpages/BlogList.vue')
         },
+        {
+          path: '/blog_content',
+          name: 'blog_content',
+          // @ts-ignore
+          component: () => import(/* webpackChunkName: "about" */ '@/views/blogpages/BlogContent.vue')
+        },
       ]
     },
     {

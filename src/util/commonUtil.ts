@@ -26,7 +26,7 @@ let commonUtil = {
     },
     replaceGithubUrl : function (gitURL: string, param: any) {
         return gitURL.replace(/(:\w+)/gi, function(item){
-                return param[item.replace(':',"_")]
+                return param[item.replace(':',"_")]?param[item.replace(':',"_")]:item;
             }
         );
     }

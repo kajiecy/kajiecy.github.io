@@ -9,6 +9,7 @@ export default new Vuex.Store({
         // issuesListPageSize:10,
         // issuesListPageMilestone:'',
         // issuesListPageLabel:'',
+        qiniuDomainName:'http://qiniu.kajie88.com/',
         defaultImg:'http://qiniu.kajie88.com/e6f4b13bb6cd1d6a109e1ae85120f33f.jpg',
         labelsList:[],
         milestonesList:[],

@@ -9,8 +9,9 @@ enum GithubUrlEnum {
     labelsList4Repository = 'https://api.github.com/repos/:owner/:repo/labels', // 获取标签列表
     labelsMilestones4Repository = 'https://api.github.com/repos/:owner/:repo/milestones', // 获取里程碑列表
     getIssuesList = 'https://api.github.com/repos/:owner/:repo/issues', // 获取博客信息
-    getUserInfo = 'https://api.github.com/users/:owner',
-    getMdContent = 'https://api.github.com/markdown',
+    getUserInfo = 'https://api.github.com/users/:owner',// 根据用户名获取用户信息
+    getMdContent = 'https://api.github.com/markdown',// 获取markdown内容
+    getIssuesContent = 'https://api.github.com/repos/:owner/:repo/issues/:issue_number', // 获取博客信息
 }
 
 class GithubApi {
@@ -20,15 +21,13 @@ class GithubApi {
     private readonly _clientSecret:string;
     private readonly _owner:string;
     private readonly _repo:string;
-    private readonly _issue_number:string;
 
-    constructor({clientId,clientSecret,owner,repo,issueNumber}:{clientId:string,clientSecret:string,owner:string,repo:string,issueNumber:string}){
+    constructor({clientId,clientSecret,owner,repo}:{clientId:string,clientSecret:string,owner:string,repo:string}){
         console.log('被示例化了',clientSecret);
         this._clientId = clientId;
         this._clientSecret = clientSecret;
         this._owner = owner;
         this._repo = repo;
-        this._issue_number = issueNumber;
     }
     /**
      *  发送get请求让用户进行登录
@@ -127,6 +126,15 @@ class GithubApi {
     async getMdContent({text}:{text:string}={text:''}){
         return new Promise(async (resolve, reject) => {
             let res = await this._post(GithubUrlEnum.getMdContent,{context: "github/gollum",mode: "markdown",text: text});
+            resolve(res)
+        });
+    }
+    async getIssuesContent({issueNumber}:{issueNumber:any}={issueNumber:0}){
+        return new Promise(async (resolve, reject) => {
+            let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.getIssuesContent,this);
+            realUrl = commonUtil.replaceGithubUrl(realUrl,{_issue_number:issueNumber});
+            console.log(realUrl)
+            let res = await this._get(realUrl);
             resolve(res)
         });
     }
