@@ -19,10 +19,32 @@
                     </span>
                 <span class="tag-item" style="background-color:#67C23A;cursor: pointer" @click="$router.push({name:'blog_list',query:{milestone:blogContent.milestone.number}})"><i class="iconfont icon-leimupinleifenleileibie"></i>{{blogContent.milestone.title}}</span>
             </div>
-            <div>
-                <article class="markdown-body" v-html="markDownBody">
+            <article class="markdown-body" v-html="markDownBody"></article>
+            <div class="blog-comment">
+                <div class="title">
+                    <span>
+                        评论 ({{blogContent.comments}})
+                    </span>
+                </div>
+                <div class="body">
+                    <div class="item dis_table wd100" v-for="(item) in commentList">
+                        <div class="dis_table_cell comment_user_avatar" style="width: 44px;vertical-align: top">
+                            <img width="44" height="44" :src="item.user.avatar_url" alt="">
+                        </div>
+                        <div class="table-right dis_table_cell textleft" style="vertical-align: top">
+                            <div>
+                                <a class="comment_user_name" :href="'https://github.com/'+item.user.login" target="_blank">{{item.user.login}}</a>
+                                <span class="comment_time">{{formatDate(item.created_at,1)}}</span>
+                            </div>
+                            <div class="comment_content">
+                                {{item.body}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
 
-                </article>
+                </div>
             </div>
         </div>
     </div>
@@ -34,53 +56,72 @@
         components: {},
     })
     export default class BlogList extends Vue {
-        blogContent:any = {};
+        blogContent:any = {labels:[],created_at:'',body:'',milestone:{}};
         markDownBody:string = '';
+        commentList:any = [];
 
         created(){
             this.initData();
         }
         async initData(){
-            this.blogContent = await this.$githubApi.getIssuesContent({issueNumber:this.$route.query.issueNumber});
-            this.markDownBody = <string>await this.$githubApi.getMdContent({text:this.blogContent.body});
+            (async()=>{
+                this.blogContent = await this.$githubApi.getIssuesContent({issueNumber:this.$route.query.issueNumber});
+                this.markDownBody = <string>await this.$githubApi.getMdContent({text:this.blogContent.body});
+            })();
+            this.commentList = await this.$githubApi.getCommentList4Issues({issueNumber:this.$route.query.issueNumber})
+
+
+
         }
         getBlogImg(blogItem:any){
             let imgUrl = '';
-            if(blogItem.labels&&blogItem.labels.length){
-                // 取最后一个有图片的标签
-                blogItem.labels.forEach((item:any)=>{
-                    if(item.name.indexOf(':img')===0){
-                        imgUrl = this.$store.state.qiniuDomainName +item.name.substring(5);
-                    }
-                })
-                console.log(imgUrl)
-            }
-            if(!imgUrl&&blogItem.milestone){
-                // 取最后一个有图片的分类
-                imgUrl = blogItem.milestone.description;
-            }
-            // 如果标签中的图片
-            // 分类中的图片
-            // 默认图片
-            if(!imgUrl){
-                imgUrl = this.$store.state.defaultImg;
+            if(blogItem.id){
+                if(blogItem.labels&&blogItem.labels.length){
+                    // 取最后一个有图片的标签
+                    blogItem.labels.forEach((item:any)=>{
+                        if(item.name.indexOf(':img')===0){
+                            imgUrl = this.$store.state.qiniuDomainName +item.name.substring(5);
+                        }
+                    })
+                }
+                if(!imgUrl&&blogItem.milestone){
+                    // 取最后一个有图片的分类
+                    imgUrl = blogItem.milestone.description;
+                }
+                // 如果标签中的图片
+                // 分类中的图片
+                // 默认图片
+                if(!imgUrl){
+                    imgUrl = this.$store.state.defaultImg;
+                }
             }
             return imgUrl;
         }
         getCharCount(text:string){
-            let reg = /[\u4e00-\u9fa5]/g;
-            let reg2 = /[a-zA-Z]/g;
-            let count1 = text.match(reg)?text.match(reg)!.length:0;
-            let count2 = text.match(reg2)?text.match(reg2)!.length:0
-            return (count1+count2/2).toFixed(0);
+            if(text){
+                let reg = /[\u4e00-\u9fa5]/g;
+                let reg2 = /[a-zA-Z]/g;
+                let count1 = text.match(reg)?text.match(reg)!.length:0;
+                let count2 = text.match(reg2)?text.match(reg2)!.length:0
+                return (count1+count2/2).toFixed(0);
+            }else {
+                return '';
+            }
+
         }
         calcReadTime(text:string){
-            let reg = /[\u4e00-\u9fa5]/g;
-            let reg2 = /[a-zA-Z]/g;
-            let count1 = text.match(reg)?text.match(reg)!.length:0;
-            let count2 = text.match(reg2)?text.match(reg2)!.length:0
-            // return ((count1+count2) / 500).toFixed(0);
-            return Math.ceil((count1+count2) / 500);
+            if(text){
+                let reg = /[\u4e00-\u9fa5]/g;
+                let reg2 = /[a-zA-Z]/g;
+                let count1 = text.match(reg)?text.match(reg)!.length:0;
+                let count2 = text.match(reg2)?text.match(reg2)!.length:0
+                // return ((count1+count2) / 500).toFixed(0);
+                return Math.ceil((count1+count2) / 500);
+            }else {
+                return 0;
+            }
+
+
         }
     }
 </script>
@@ -94,17 +135,17 @@
         .blog-content-body {
             margin-bottom: 20px;
             /*box-shadow: 0 0 1rem rgba(161, 177, 204, .5);*/
-            border-radius: 10px;
+            /*border-radius: 10px;*/
             overflow: hidden;
 
             .img-div {
                 height: 500px;
-                border-top-right-radius: 10px;
-                border-top-left-radius: 10px;
+                border-radius: 10px;
+                /*border-top-right-radius: 10px;*/
+                /*border-top-left-radius: 10px;*/
                 overflow: hidden;
                 cursor: pointer;
                 user-select: none;
-
             }
 
             .title-div {
@@ -143,6 +184,53 @@
                 box-sizing: border-box;
                 margin: 0 auto;
                 padding: 0 0 15px;
+            }
+            .blog-comment{
+                padding: 10px 0;
+                .title{
+                    span{
+                        font-size: 18px;
+                        display: inline-block;
+                        border-bottom: 3px solid #258EFB;
+                        padding: 5px 15px;
+                        position: relative;
+                        top: 2px;
+
+                    }
+                    border-bottom: 1px solid #eaecef;
+                }
+                .body{
+                    padding: 5px 0;
+                    .item{
+                        margin:20px 5px;
+                        .comment_user_avatar{
+                            img{
+                                display: inline-block;
+                                border-radius: 5px;
+                                overflow: hidden;
+                            }
+                        }
+
+                        .table-right{
+                            padding-left: 15px;
+                            .comment_user_name{
+                                font-size: 16px;
+                                display: inline-block;
+                                padding: 0 5px 0 0;
+                                color: #076DD0;
+                                cursor: pointer;
+                                text-decoration: none;
+                            }
+                            .comment_time{
+                                font-size: 12px;
+                                color: #656C7A;
+                            }
+                            .comment_content{
+                                padding: 5px 0;
+                            }
+                        }
+                    }
+                }
             }
         }
 

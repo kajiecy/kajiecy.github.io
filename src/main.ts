@@ -33,7 +33,7 @@ Vue.mixin({
           hour = padDate(value.getHours()),
           minutes = padDate(value.getMinutes()),
           seconds = padDate(value.getSeconds());
-      if (n) return year + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds;
+      if (n===1) return year + "-" + month + "-" + day + " " + hour + ":" + minutes;
       else return (year + "年" + month + "月" + day + "日");
     }
   }

@@ -5,13 +5,14 @@ import GithubConfig from './GithubConfig';
 enum GithubUrlEnum {
     toLogin = 'https://github.com/login/oauth/authorize',// 登录转跳
     getToken = 'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token', // 获取用户access_token
-    createComment = 'https://api.github.com/repos/:owner/:repo/issues/:issue_number/comments', // 添加评论
     labelsList4Repository = 'https://api.github.com/repos/:owner/:repo/labels', // 获取标签列表
     labelsMilestones4Repository = 'https://api.github.com/repos/:owner/:repo/milestones', // 获取里程碑列表
     getIssuesList = 'https://api.github.com/repos/:owner/:repo/issues', // 获取博客信息
     getUserInfo = 'https://api.github.com/users/:owner',// 根据用户名获取用户信息
     getMdContent = 'https://api.github.com/markdown',// 获取markdown内容
     getIssuesContent = 'https://api.github.com/repos/:owner/:repo/issues/:issue_number', // 获取博客信息
+    getCommentList4Issues = 'https://api.github.com/repos/:owner/:repo/issues/:issue_number/comments',
+    createComment = 'https://api.github.com/repos/:owner/:repo/issues/:issue_number/comments', // 添加评论
 }
 
 class GithubApi {
@@ -54,20 +55,6 @@ class GithubApi {
         })
     }
     /**
-     * 创建一条评论 需要登录
-     * @param comment 评论内容
-     */
-    async createComment({comment}:{comment:string}){
-        return new Promise(async (resolve, reject) => {
-            let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.createComment,this);
-            let res = await this._post(realUrl,{body:comment});
-            if(res.id){
-                resolve(res)
-            }
-        });
-    }
-
-    /**
      * 查询库中的所有labels
      */
     async labelsList4Repository(){
@@ -83,7 +70,6 @@ class GithubApi {
      * 获取 repo中的里程碑 已弃用 issues中不能通过 里程碑检索
      * @param state
      * @param sort
-     * @param direction
      * @param page
      * @param perPage
      */
@@ -115,7 +101,6 @@ class GithubApi {
             resolve(res)
         });
     }
-
     async getBloggerInfo(){
         return new Promise(async (resolve, reject) => {
             let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.getUserInfo,this);
@@ -133,9 +118,34 @@ class GithubApi {
         return new Promise(async (resolve, reject) => {
             let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.getIssuesContent,this);
             realUrl = commonUtil.replaceGithubUrl(realUrl,{_issue_number:issueNumber});
-            console.log(realUrl)
             let res = await this._get(realUrl);
             resolve(res)
+        });
+    }
+    async getCommentList4Issues({issueNumber,page,perPage}:{issueNumber:any,page?:number,perPage?:number}={issueNumber:0}){
+        // getIssuesContent 中 comments 可以得到总条数
+        return new Promise(async (resolve, reject) => {
+            page = page||1;
+            perPage = perPage||10;
+            let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.getCommentList4Issues,this);
+            realUrl = commonUtil.replaceGithubUrl(realUrl,{_issue_number:issueNumber});
+            let res = await this._get(realUrl,{page,'per_page':perPage});
+            resolve(res)
+        });
+    }
+
+    /**
+     * 创建一条评论 需要登录
+     * @param comment 评论内容
+     */
+    async createComment({comment}:{comment:string}){
+        return new Promise(async (resolve, reject) => {
+            let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.createComment,this);
+            let res = await this._post(realUrl,{body:comment});
+
+            if(res.id){
+                resolve(res)
+            }
         });
     }
 }

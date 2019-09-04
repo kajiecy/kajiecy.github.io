@@ -70,7 +70,6 @@
                         imgUrl = this.$store.state.qiniuDomainName +item.name.substring(5);
                     }
                 })
-                console.log(imgUrl)
             }
             if(!imgUrl&&blogItem.milestone){
                 // 取最后一个有图片的分类
