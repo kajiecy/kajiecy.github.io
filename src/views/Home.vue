@@ -17,15 +17,15 @@
                         <div class="blog-count">
                             <div>
                                 <span>文章</span><br>
-                                10
+                                {{$store.state.repoInfo.open_issues_count}}
                             </div>
                             <div>
                                 <span>标签</span><br>
-                                10
+                                {{$store.state.labelsList.length}}
                             </div>
                             <div>
                                 <span>分类</span><br>
-                                10
+                                {{$store.state.milestonesList.length}}
                             </div>
                         </div>
                         <span class="blog-function-list-item active" @click="$router.push('/')" title="我的首页">
