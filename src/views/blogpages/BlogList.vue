@@ -19,7 +19,7 @@
                           :style="{backgroundColor:'#'+cItem.color}">
                         <i class="iconfont icon-biaoqian"></i>{{cItem.name}}
                     </span>
-                    <span class="tag-item"><i class="iconfont icon-leimupinleifenleileibie"></i>技术</span>
+                    <span class="tag-item" style="background-color:#67C23A;cursor: pointer" @click="$router.push({name:'blog_list',query:{milestone:item.milestone.number}})"><i class="iconfont icon-leimupinleifenleileibie"></i>{{item.milestone.title}}</span>
                 </div>
             </div>
         </template>
