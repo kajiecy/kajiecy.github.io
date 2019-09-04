@@ -7,11 +7,12 @@ enum GithubUrlEnum {
     getToken = 'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token', // 获取用户access_token
     labelsList4Repository = 'https://api.github.com/repos/:owner/:repo/labels', // 获取标签列表
     labelsMilestones4Repository = 'https://api.github.com/repos/:owner/:repo/milestones', // 获取里程碑列表
+    getRepoInfo = 'https://api.github.com/repos/:owner/:repo',
     getIssuesList = 'https://api.github.com/repos/:owner/:repo/issues', // 获取博客信息
     getUserInfo = 'https://api.github.com/users/:owner',// 根据用户名获取用户信息
     getMdContent = 'https://api.github.com/markdown',// 获取markdown内容
     getIssuesContent = 'https://api.github.com/repos/:owner/:repo/issues/:issue_number', // 获取博客信息
-    getCommentList4Issues = 'https://api.github.com/repos/:owner/:repo/issues/:issue_number/comments',
+    getCommentList4Issues = 'https://api.github.com/repos/:owner/:repo/issues/:issue_number/comments',//获取单个issues 中 comment 列表
     createComment = 'https://api.github.com/repos/:owner/:repo/issues/:issue_number/comments', // 添加评论
 }
 
@@ -82,6 +83,14 @@ class GithubApi {
             resolve(res)
         });
     }
+    async getRepoInfo(){
+        return new Promise(async (resolve, reject) => {
+            let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.getRepoInfo,this);
+            let res = await this._get(realUrl);
+            resolve(res)
+        });
+    }
+
     /**
      * 获取issues的list
      * @param creator

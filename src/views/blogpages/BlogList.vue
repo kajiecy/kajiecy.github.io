@@ -22,18 +22,18 @@
                 </div>
             </div>
         </template>
-        <nav class="blog-page-nav">
-            <span class="page-item current">1</span>
-            <span class="page-item ">2</span>
-            <span class="page-item page-next"><i class="iconfont icon-next"></i></span>
-        </nav>
+        <page-component :pageNum="pageNum" :pageSize="pageSize" :total="99"></page-component>
     </div>
 </template>
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator';
+    // @ts-ignore
+    import PageComponent from '@/components/PageComponent.vue';
 
     @Component({
-        components: {},
+        components: {
+            PageComponent,
+        },
     })
     export default class BlogList extends Vue {
         pageNum:number = 1;

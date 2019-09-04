@@ -133,6 +133,7 @@
             // @ts-ignore
             this.$githubApi.labelsList4Repository().then((labelsList)=>this.$store.commit('setLabelsList',labelsList.filter((item)=>{return item.name.indexOf(':img')===-1})));
             this.$githubApi.milestonesList4Repository().then((milestonesList)=>this.$store.commit('setMilestonesList',milestonesList))
+            this.$githubApi.getRepoInfo().then((repoInfo)=>{this.$store.commit('setRepoInfo',repoInfo)})
         }
         @Watch("$route", {deep: false})
         watchTopStatus(newValue: any, oldValue: any) {

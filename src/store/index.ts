@@ -13,6 +13,7 @@ export default new Vuex.Store({
         defaultImg:'http://qiniu.kajie88.com/e6f4b13bb6cd1d6a109e1ae85120f33f.jpg',
         labelsList:[],
         milestonesList:[],
+        repoInfo:{},
     },
     mutations: {
         setLabelsList(state,labelsList:any){
@@ -22,6 +23,9 @@ export default new Vuex.Store({
         setMilestonesList(state,milestonesList:any){
             // @ts-ignore
             state.milestonesList.splice(0,state.milestonesList.length,...milestonesList);
+        },
+        setRepoInfo(state,repoInfo:any){
+            state.repoInfo = repoInfo;
         },
     },
     getters:{
