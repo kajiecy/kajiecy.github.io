@@ -17,7 +17,7 @@
                         <div class="blog-count">
                             <div>
                                 <span>文章</span><br>
-                                {{$store.state.repoInfo.open_issues_count}}
+                                {{$store.state.repoInfo.open_issues_count?$store.state.repoInfo.open_issues_count:0}}
                             </div>
                             <div>
                                 <span>标签</span><br>
@@ -31,7 +31,7 @@
                         <span class="blog-function-list-item active" @click="$router.push('/')" title="我的首页">
                             <div class="list-item-content"><i class="item-icon iconfont icon-shouye"></i>我的首页</div>
                         </span>
-                        <span class="blog-function-list-item " href="javascript:void(0)" title="关于博客">
+                        <span class="blog-function-list-item " @click="$router.push({name:'test'})" href="javascript:void(0)" title="关于博客">
                             <div class="list-item-content"><i class="item-icon iconfont icon-about"></i>关于博客</div>
                         </span>
 

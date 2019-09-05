@@ -87,16 +87,17 @@
             let reg = /[\u4e00-\u9fa5]/g;
             let reg2 = /[a-zA-Z]/g;
             let count1 = text.match(reg)?text.match(reg)!.length:0;
-            let count2 = text.match(reg2)?text.match(reg2)!.length:0
-            return (count1+count2/2).toFixed(0);
+            // let count2 = text.match(reg2)?text.match(reg2)!.length:0
+            // return (count1+count2/2).toFixed(0);
+            return (count1).toFixed(0);
         }
         calcReadTime(text:string){
             let reg = /[\u4e00-\u9fa5]/g;
             let reg2 = /[a-zA-Z]/g;
             let count1 = text.match(reg)?text.match(reg)!.length:0;
-            let count2 = text.match(reg2)?text.match(reg2)!.length:0
+            // let count2 = text.match(reg2)?text.match(reg2)!.length:0
             // return ((count1+count2) / 500).toFixed(0);
-            return Math.ceil((count1+count2) / 500);
+            return Math.ceil((count1) / 500);
         }
     }
 </script>

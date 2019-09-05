@@ -67,6 +67,7 @@
             (async()=>{
                 this.blogContent = await this.$githubApi.getIssuesContent({issueNumber:this.$route.query.issueNumber});
                 this.markDownBody = <string>await this.$githubApi.getMdContent({text:this.blogContent.body});
+                this.markDownBody = this.markDownBody.replace(/<a href="([^"]*).* src="([^"]*).* alt="([^"]*)".* data-canonical-src="([^"]*)".*<\/a>/gi,`<a href="$4" target="_blank" rel="nofollow"><img src="$4" alt="$3" data-canonical-src="$4" style="max-width:100%;"></a>`)
             })();
             this.commentList = await this.$githubApi.getCommentList4Issues({issueNumber:this.$route.query.issueNumber})
 
@@ -102,8 +103,9 @@
                 let reg = /[\u4e00-\u9fa5]/g;
                 let reg2 = /[a-zA-Z]/g;
                 let count1 = text.match(reg)?text.match(reg)!.length:0;
-                let count2 = text.match(reg2)?text.match(reg2)!.length:0
-                return (count1+count2/2).toFixed(0);
+                // let count2 = text.match(reg2)?text.match(reg2)!.length:0
+                // return (count1+count2/2).toFixed(0);
+                return (count1).toFixed(0);
             }else {
                 return '';
             }
@@ -114,9 +116,9 @@
                 let reg = /[\u4e00-\u9fa5]/g;
                 let reg2 = /[a-zA-Z]/g;
                 let count1 = text.match(reg)?text.match(reg)!.length:0;
-                let count2 = text.match(reg2)?text.match(reg2)!.length:0
+                // let count2 = text.match(reg2)?text.match(reg2)!.length:0
                 // return ((count1+count2) / 500).toFixed(0);
-                return Math.ceil((count1+count2) / 500);
+                return Math.ceil((count1) / 500);
             }else {
                 return 0;
             }

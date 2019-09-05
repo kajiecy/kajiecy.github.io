@@ -1,8 +1,5 @@
 <template>
-<div style="height: 100%;overflow: hidden">
-  <div class="inline-block" style="background-color: #2ab1f0;width: 200px;height: 100vh;overflow: auto">
-    <div v-for="item in 100">{{item}}</div>
-  </div>
+<div style="">
 
 </div>
 </template>
@@ -14,79 +11,32 @@
     },
   })
   export default class test extends Vue {
+      created(){
+        // let gitA = `<a href="https://camo.githubusercontent.com/bf3564e3787f5a22e9f705e45a55c55c9efadb06/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30342e6a7067" target="_blank" rel="nofollow"><img src="https://camo.githubusercontent.com/bf3564e3787f5a22e9f705e45a55c55c9efadb06/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30342e6a7067" alt="photo_01_04" data-canonical-src="http://qiniu.kajie88.com/photo_01_04.jpg" style="max-width:100%;"></a>`;
 
+        let gitA = '<p><a href="https://camo.githubusercontent.com/369a0593551c1c5dcc5e02db8ff112fe6d75ec77/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f31302e6a7067" target="_blank" rel="nofollow"><img src="https://camo.githubusercontent.com/369a0593551c1c5dcc5e02db8ff112fe6d75ec77/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f31302e6a7067" alt="photo_01_10" data-canonical-src="http://qiniu.kajie88.com/photo_01_10.jpg" style="max-width:100%;"></a>\n' +
+                '<a href="https://camo.githubusercontent.com/bf3564e3787f5a22e9f705e45a55c55c9efadb06/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30342e6a7067" target="_blank" rel="nofollow"><img src="https://camo.githubusercontent.com/bf3564e3787f5a22e9f705e45a55c55c9efadb06/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30342e6a7067" alt="photo_01_04" data-canonical-src="http://qiniu.kajie88.com/photo_01_04.jpg" style="max-width:100%;"></a>\n' +
+                '<a href="https://camo.githubusercontent.com/4d4cfb5fcea7cfe2b3a1b09baa8ae244d791d9fd/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30392e6a7067" target="_blank" rel="nofollow"><img src="https://camo.githubusercontent.com/4d4cfb5fcea7cfe2b3a1b09baa8ae244d791d9fd/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30392e6a7067" alt="photo_01_09" data-canonical-src="http://qiniu.kajie88.com/photo_01_09.jpg" style="max-width:100%;"></a>\n' +
+                '<a href="https://camo.githubusercontent.com/694fce7876f895f630279ea1c6ad3ff8ed18e4e9/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30372e6a7067" target="_blank" rel="nofollow"><img src="https://camo.githubusercontent.com/694fce7876f895f630279ea1c6ad3ff8ed18e4e9/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30372e6a7067" alt="photo_01_07" data-canonical-src="http://qiniu.kajie88.com/photo_01_07.jpg" style="max-width:100%;"></a>\n' +
+                '<a href="https://camo.githubusercontent.com/752d9ef166b8bab6548578b09c186a3f5c11205c/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30352e6a7067" target="_blank" rel="nofollow"><img src="https://camo.githubusercontent.com/752d9ef166b8bab6548578b09c186a3f5c11205c/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30352e6a7067" alt="photo_01_05" data-canonical-src="http://qiniu.kajie88.com/photo_01_05.jpg" style="max-width:100%;"></a>\n' +
+                '<a href="https://camo.githubusercontent.com/bda31c0d0259821b0056700d26f0aced0c12f02c/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30382e6a7067" target="_blank" rel="nofollow"><img src="https://camo.githubusercontent.com/bda31c0d0259821b0056700d26f0aced0c12f02c/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30382e6a7067" alt="photo_01_08" data-canonical-src="http://qiniu.kajie88.com/photo_01_08.jpg" style="max-width:100%;"></a>\n' +
+                '<a href="https://camo.githubusercontent.com/02437fdb6723ae26c05d60583f9969093358494a/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30322e6a7067" target="_blank" rel="nofollow"><img src="https://camo.githubusercontent.com/02437fdb6723ae26c05d60583f9969093358494a/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30322e6a7067" alt="photo_01_02" data-canonical-src="http://qiniu.kajie88.com/photo_01_02.jpg" style="max-width:100%;"></a>\n' +
+                '<a href="https://camo.githubusercontent.com/b1a38c225a70e1b169507bb2dde5056074b74c49/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30312e6a7067" target="_blank" rel="nofollow"><img src="https://camo.githubusercontent.com/b1a38c225a70e1b169507bb2dde5056074b74c49/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30312e6a7067" alt="photo_01_01" data-canonical-src="http://qiniu.kajie88.com/photo_01_01.jpg" style="max-width:100%;"></a>\n' +
+                '<a href="https://camo.githubusercontent.com/8aade772480f36dfbbae3ec5de3bfe662a7bc03e/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30362e6a7067" target="_blank" rel="nofollow"><img src="https://camo.githubusercontent.com/8aade772480f36dfbbae3ec5de3bfe662a7bc03e/687474703a2f2f71696e69752e6b616a696538382e636f6d2f70686f746f5f30315f30362e6a7067" alt="photo_01_06" data-canonical-src="http://qiniu.kajie88.com/photo_01_06.jpg" style="max-width:100%;"></a></p>\n';
+
+        let gitReg = /<a href="([^"]*).* src="([^"]*).* alt="([^"]*)".* data-canonical-src="([^"]*)".*<\/a>/gi;
+        console.log(gitReg.exec(gitA));
+        gitA = gitA.replace(gitReg,`<a href="$4" target="_blank" rel="nofollow"><img src="$4" alt="$3" data-canonical-src="$4" style="max-width:100%;"></a>`)
+        console.log(gitA)
+        // 训练1: 请通过正则表达式，把 () => 1+1 修改为 function () { return 1+1 }
+        // let str1 = `() => 1+1`;
+        // let reg1 = /(\(\))\s=>\s(1.1)/
+        // console.log(reg1.exec(str1));
+        // str1 = str1.replace(reg1,'function $1 { return $2 }')
+        // console.log('s1 result = ',str1)
+      }
   }
 </script>
 <style scoped>
 
-  span {
-    font-size: 2em;
-  }
-
-  #container{
-    display: grid;
-    grid-auto-flow: row dense;
-    grid-template-rows: repeat(16,46px);
-    grid-template-columns: repeat(1,100%);
-
-    /*grid-template-columns: [c1] 150px [c2] 150px [c3] 150px [c4];*/
-    /*grid-template-rows: [r1] 150px [r2] 150px [r3] 150px [r4];*/
-    /*grid-gap: 5px 5px;*/
-    /*grid-template-areas:  "header header header"*/
-    /*                      "main main sidebar"*/
-    /*                      "footer footer footer";*/
-    /*justify-items: stretch;*/
-    /*align-items: stretch;*/
-
-
-    /*justify-content: space-around ;*/
-    /*align-content: start | end | center | stretch | space-around | space-between | space-evenly;*/
-  }
-
-  .item {
-    font-size: 2em;
-    text-align: center;
-    border: 1px solid #e5e4e9;
-  }
-
-  .item-1 {
-    background-color: #ef342a;
-    grid-row: span 3;
-    /*grid-column: 1 / 3;*/
-    /*grid-row: 1 / 3;*/
-  }
-
-  .item-2 {
-    background-color: #f68f26;
-  }
-
-  .item-3 {
-    background-color: #4ba946;
-  }
-
-  .item-4 {
-    background-color: #0376c2;
-  }
-
-  .item-5 {
-    background-color: #c077af;
-  }
-
-  .item-6 {
-    background-color: #f8d29d;
-  }
-
-  .item-7 {
-    background-color: #b5a87f;
-  }
-
-  .item-8 {
-    background-color: #d0e4a9;
-
-  }
-
-  .item-9 {
-    background-color: #4dc7ec;
-
-  }
 </style>
