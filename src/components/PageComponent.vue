@@ -2,16 +2,16 @@
 <template>
     <div class="blog-page-nav">
         <template v-for="(item,index) in totalPage">
-            <span v-if="checkShow(item,'lt')==='show'" class="page-item" @click="pageNum = item">{{item}}</span>
+            <span v-if="checkShow(item,'lt')==='show'" class="page-item" @click="changeNumAppoint(item)">{{item}}</span>
             <span v-else-if="checkShow(item,'lt')==='ignore'" class="page-item page-ignore">...</span>
         </template>
         <span class="page-item current">{{pageNum}}</span>
 
         <template v-for="(item,index) in totalPage">
-            <span v-if="checkShow(item,'gt')==='show'" class="page-item" @click="pageNum = item">{{item}}</span>
+            <span v-if="checkShow(item,'gt')==='show'" class="page-item" @click="changeNumAppoint(item)">{{item}}</span>
             <span v-else-if="checkShow(item,'gt')==='ignore'" class="page-item page-ignore">...</span>
         </template>
-        <span class="page-item page-next" @click="pageNum++"><i class="iconfont icon-next"></i></span>
+        <span class="page-item page-next" @click="changePageNum"><i class="iconfont icon-next"></i></span>
     </div>
 
 </template>
@@ -22,15 +22,17 @@
         components: {},
     })
     export default class PageComponents extends Vue {
-        // @Prop({type: Number,default:1}) private pageNum!: number;
-        // @Prop({type: Number,default:1}) private pageSize!: number;
-        // @Prop({type: Number,default:1}) private total!: number;
+        @Prop({type: Number,default:1}) private pageNum!: number;
+        @Prop({type: Number,default:1}) private pageSize!: number;
+        @Prop({type: Number,default:1}) private total!: number;
 
-        pageNum: number = 1;
-        pageSize: number = 10;
-        total: number = 60;
-        totalPage: number = Math.ceil(this.total / this.pageSize);
-
+        // pageNum: number = 1;
+        // pageSize: number = 10;
+        // total: number = 60;
+        // totalPage: number = Math.ceil(this.total / this.pageSize);
+        get totalPage(){
+            return Math.ceil(this.total / this.pageSize);
+        }
         checkShow(curNum: number, type: string) {
             if (type === 'lt') {
                 if (curNum < this.pageNum) {
@@ -69,6 +71,14 @@
                 }
             }
             return 'hidden';
+        }
+        changePageNum(){
+            if(this.pageNum<this.totalPage){
+                this.$emit('changePage',this.pageNum+1);
+            }
+        }
+        changeNumAppoint(pageNum:number){
+            this.$emit('changePage',pageNum);
         }
     }
 </script>

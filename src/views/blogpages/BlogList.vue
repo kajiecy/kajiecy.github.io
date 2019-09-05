@@ -22,7 +22,7 @@
                 </div>
             </div>
         </template>
-        <page-component :pageNum="pageNum" :pageSize="pageSize" :total="99"></page-component>
+        <page-component :pageNum="pageNum" :pageSize="pageSize" :total="$store.state.repoInfo.open_issues_count" @changePage="changePage"></page-component>
     </div>
 </template>
 <script lang="ts">
@@ -98,6 +98,11 @@
             // let count2 = text.match(reg2)?text.match(reg2)!.length:0
             // return ((count1+count2) / 500).toFixed(0);
             return Math.ceil((count1) / 500);
+        }
+        changePage(pageNum:number){
+            console.log('changePage_____>')
+            this.pageNum = pageNum;
+            this.searchIssuesList();
         }
     }
 </script>

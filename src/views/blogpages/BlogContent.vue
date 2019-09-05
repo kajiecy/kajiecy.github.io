@@ -20,6 +20,12 @@
                 <span class="tag-item" style="background-color:#67C23A;cursor: pointer" @click="$router.push({name:'blog_list',query:{milestone:blogContent.milestone.number}})"><i class="iconfont icon-leimupinleifenleileibie"></i>{{blogContent.milestone.title}}</span>
             </div>
             <article class="markdown-body" v-html="markDownBody"></article>
+            <div>
+                accessToken:{{loginInfo.accessToken}}<br>
+                loginAvatar:{{loginInfo.loginAvatar}}
+
+                <span style="display: inline-block;padding: 10px;background-color: #2ab1f0;cursor: pointer;color: white" @click="toLogin">登录</span>
+            </div>
             <div class="blog-comment">
                 <div class="title">
                     <span>
@@ -41,9 +47,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div>
-
+                    <page-component :pageNum="pageNum" :pageSize="pageSize" :total="blogContent.comments" @changePage="changePage"></page-component>
                 </div>
             </div>
         </div>
@@ -51,17 +55,30 @@
 </template>
 <script lang="ts">
     import {Component,Prop,Vue,Model,Watch,Inject} from 'vue-property-decorator';
-
+    // @ts-ignore
+    import PageComponent from '@/components/PageComponent.vue';
+    import GithubConfig from '@/util/GithubConfig';
     @Component({
-        components: {},
+        components: {
+            PageComponent
+        },
     })
     export default class BlogList extends Vue {
         blogContent:any = {labels:[],created_at:'',body:'',milestone:{}};
         markDownBody:string = '';
         commentList:any = [];
+        pageNum:number = 1;
+        pageSize:number = 10;
 
         created(){
             this.initData();
+        }
+        toLogin(){
+            // console.log(window.location.href)
+            this.$githubApi.toLogin(window.location.href);
+        }
+        get loginInfo(){
+            return {accessToken:localStorage.getItem(GithubConfig.LOCALSTORAGE_NAME),loginAvatar:localStorage.getItem(GithubConfig.LOCALSTORAGE_LOGIN_AVATAR)}
         }
         async initData(){
             (async()=>{
@@ -69,10 +86,11 @@
                 this.markDownBody = <string>await this.$githubApi.getMdContent({text:this.blogContent.body});
                 this.markDownBody = this.markDownBody.replace(/<a href="([^"]*).* src="([^"]*).* alt="([^"]*)".* data-canonical-src="([^"]*)".*<\/a>/gi,`<a href="$4" target="_blank" rel="nofollow"><img src="$4" alt="$3" data-canonical-src="$4" style="max-width:100%;"></a>`)
             })();
-            this.commentList = await this.$githubApi.getCommentList4Issues({issueNumber:this.$route.query.issueNumber})
-
-
-
+            this.$githubApi.getLoginUserInfo();
+            this.getCommentList();
+        }
+        async getCommentList(){
+            this.commentList = await this.$githubApi.getCommentList4Issues({issueNumber:this.$route.query.issueNumber,page:this.pageNum,perPage:this.pageSize});
         }
         getBlogImg(blogItem:any){
             let imgUrl = '';
@@ -122,8 +140,11 @@
             }else {
                 return 0;
             }
-
-
+        }
+        changePage(pageNum:number){
+            console.log('changePage_____>')
+            this.pageNum = pageNum;
+            this.getCommentList();
         }
     }
 </script>

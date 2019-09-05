@@ -13,7 +13,7 @@ export default new Vuex.Store({
         defaultImg:'http://qiniu.kajie88.com/e6f4b13bb6cd1d6a109e1ae85120f33f.jpg',
         labelsList:[],
         milestonesList:[],
-        repoInfo:{},
+        repoInfo:{open_issues_count:0},
     },
     mutations: {
         setLabelsList(state,labelsList:any){

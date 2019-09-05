@@ -14,6 +14,7 @@ enum GithubUrlEnum {
     getIssuesContent = 'https://api.github.com/repos/:owner/:repo/issues/:issue_number', // 获取博客信息
     getCommentList4Issues = 'https://api.github.com/repos/:owner/:repo/issues/:issue_number/comments',//获取单个issues 中 comment 列表
     createComment = 'https://api.github.com/repos/:owner/:repo/issues/:issue_number/comments', // 添加评论
+    getLoginUserInfo = 'https://api.github.com/user' // 根据token获取用户数据
 }
 
 class GithubApi {
@@ -36,8 +37,8 @@ class GithubApi {
      * @param publicRepo scope级别(请不要随便更改) 文档:https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
      * @param redirectUri 用户登录成功后的跳转地址填空转跳到配置的地址中
      */
-    toLogin(publicRepo:string='public_repo',redirectUri:string=''):void{
-        window.open(GithubUrlEnum.toLogin+`?scope=${publicRepo}&client_id=${this._clientId}&client_secret=${this._clientSecret}${redirectUri?'&redirect_uri='+redirectUri:''}`);
+    toLogin(redirectUri:string=''):void{
+        window.open(GithubUrlEnum.toLogin+`?scope=public_repo&client_id=${this._clientId}&client_secret=${this._clientSecret}${redirectUri?'&redirect_uri='+redirectUri:''}`);
     }
     getToken({code}:{code:string}):Promise<Object>{
         //此处地址需要转发否则跨域
@@ -157,6 +158,16 @@ class GithubApi {
             }
         });
     }
+    async getLoginUserInfo(){
+        return new Promise(async (resolve, reject) => {
+            let res = await this._get(GithubUrlEnum.getLoginUserInfo);
+            if(res.id){
+                resolve(res)
+            }
+        });
+    }
+
+
 }
 export default GithubApi;
 
