@@ -72,23 +72,13 @@
         pageSize:number = 10;
 
         created(){
-            console.log('window.location.href=============》',window.location.href)
             if(window.location.href.indexOf('?code=')!==-1&&!this.$route.query.code){
-                console.log(`进入1重新转到2`)
-                this.$router.push({name:'api_test',query:{...this.$route.query,code:window.location.href.substring(window.location.href.indexOf('?code=')+6,window.location.href.indexOf('#'))}})
+                this.$githubApi.getToken({code:window.location.href.substring(window.location.href.indexOf('?code=')+6,window.location.href.indexOf('#'))}).then((res)=>{
+                    alert(window.location.href.substring(0,window.location.href.indexOf('?code='))+window.location.href.substring(window.location.href.indexOf('#')))
+                    window.location.href = window.location.href.substring(0,window.location.href.indexOf('?code='))+window.location.href.substring(window.location.href.indexOf('#'));
+                });
             }else {
-                history.pushState({code:'1'},'my_blog','#/blog_content?issueNumber='+this.$route.query.issueNumber);
-                let code:string = <string>this.$route.query.code;
-                if(code){
-                    this.$githubApi.getToken({code:code}).then((res)=>{
-                        console.log('getToken返回的结果',res)
-                        // @ts-ignore
-                        this.$route.query.code = null;
-                        this.initData();
-                    });
-                }else {
-                    this.initData();
-                }
+                this.initData();
             }
         }
         toLogin(){
