@@ -24,7 +24,7 @@
                 accessToken:{{loginInfo.accessToken}}<br>
                 loginAvatar:{{loginInfo.loginAvatar}}
 
-                <span v-if="loginInfo.accessToken" style="display: inline-block;padding: 10px;background-color: #2ab1f0;cursor: pointer;color: white" @click="toLogin">登录</span>
+                <span v-if="!loginInfo.accessToken" style="display: inline-block;padding: 10px;background-color: #2ab1f0;cursor: pointer;color: white" @click="toLogin">登录</span>
             </div>
             <div class="blog-comment">
                 <div class="title">
