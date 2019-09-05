@@ -25,6 +25,7 @@
                 loginAvatar:{{loginInfo.loginAvatar}}
 
                 <span v-if="!loginInfo.accessToken" style="display: inline-block;padding: 10px;background-color: #2ab1f0;cursor: pointer;color: white" @click="toLogin">登录</span>
+                <span v-else style="display: inline-block;padding: 10px;background-color: #2ab1f0;cursor: pointer;color: white" @click="loginOut">注销</span>
             </div>
             <div class="blog-comment">
                 <div class="title">
@@ -79,7 +80,8 @@
                 history.pushState({code:'1'},'my_blog','#/blog_content?issueNumber='+this.$route.query.issueNumber);
                 let code:string = <string>this.$route.query.code;
                 if(code){
-                    this.$githubApi.getToken({code:code}).then(()=>{
+                    this.$githubApi.getToken({code:code}).then((res)=>{
+                        console.log('getToken返回的结果',res)
                         // @ts-ignore
                         this.$route.query.code = null;
                         this.initData();
@@ -92,6 +94,9 @@
         toLogin(){
             // console.log(window.location.href)
             this.$githubApi.toLogin(window.location.href);
+        }
+        loginOut(){
+            localStorage.setItem(GithubConfig.LOCALSTORAGE_NAME,'');
         }
         get loginInfo(){
             return {accessToken:localStorage.getItem(GithubConfig.LOCALSTORAGE_NAME),loginAvatar:localStorage.getItem(GithubConfig.LOCALSTORAGE_LOGIN_AVATAR)}
