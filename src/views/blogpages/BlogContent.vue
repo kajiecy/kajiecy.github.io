@@ -73,10 +73,13 @@
 
         created(){
             if(window.location.href.indexOf('?code=')!==-1&&!this.$route.query.code){
-                this.$githubApi.getToken({code:window.location.href.substring(window.location.href.indexOf('?code=')+6,window.location.href.indexOf('#'))}).then((res)=>{
-                    alert(window.location.href.substring(0,window.location.href.indexOf('?code='))+window.location.href.substring(window.location.href.indexOf('#')))
+                (async()=>{
+                    await this.$githubApi.getToken({code:window.location.href.substring(window.location.href.indexOf('?code=')+6,window.location.href.indexOf('#'))});
+                    let loginUserInfo:any = await this.$githubApi.getLoginUserInfo()
+                    localStorage.setItem(GithubConfig.LOCALSTORAGE_LOGIN_AVATAR,loginUserInfo.avatar_url);
                     window.location.href = window.location.href.substring(0,window.location.href.indexOf('?code='))+window.location.href.substring(window.location.href.indexOf('#'));
-                });
+
+                })()
             }else {
                 this.initData();
             }
@@ -87,6 +90,8 @@
         }
         loginOut(){
             localStorage.setItem(GithubConfig.LOCALSTORAGE_NAME,'');
+            localStorage.setItem(GithubConfig.LOCALSTORAGE_LOGIN_AVATAR,'');
+            window.history.go(0);
         }
         get loginInfo(){
             return {accessToken:localStorage.getItem(GithubConfig.LOCALSTORAGE_NAME),loginAvatar:localStorage.getItem(GithubConfig.LOCALSTORAGE_LOGIN_AVATAR)}

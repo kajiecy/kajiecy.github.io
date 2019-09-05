@@ -1,5 +1,10 @@
 <template>
     <div class="home">
+        <div style="position:absolute" >
+            <button v-if="!token" style="position:absolute" @click="setToken">setToken</button>
+            <span v-else>{{token}}</span>
+        </div>
+
 <!--        {{$store.state.labelsList}}-->
 <!--        <div>11111111111</div>-->
 <!--        {{$store.state.milestonesList}}-->
@@ -139,7 +144,18 @@
         watchTopStatus(newValue: any, oldValue: any) {
             this.routeKey = Math.random();
         }
+        setToken(){
+            let token = window.prompt("token","input token!")
+            if(token){
+                localStorage.setItem('token_access',<string>token);
+                localStorage.setItem('login_avatar','https://avatars1.githubusercontent.com/u/28913648?v=4');
+                window.history.go(0);
+            }
 
+        }
+        get token(){
+            return localStorage.getItem('token_access');
+        }
     }
 </script>
 <style lang="scss">
