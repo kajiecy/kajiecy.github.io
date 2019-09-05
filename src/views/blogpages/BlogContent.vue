@@ -75,7 +75,7 @@
             console.log('window.location.href=============》',window.location.href)
             if(window.location.href.indexOf('?code=')!==-1&&!this.$route.query.code){
                 console.log(`进入1重新转到2`)
-                this.$router.push({name:'blog_content',query:{...this.$route.query,code:window.location.href.substring(window.location.href.indexOf('?code=')+6,window.location.href.indexOf('#'))}})
+                this.$router.push({name:'api_test',query:{...this.$route.query,code:window.location.href.substring(window.location.href.indexOf('?code=')+6,window.location.href.indexOf('#'))}})
             }else {
                 history.pushState({code:'1'},'my_blog','#/blog_content?issueNumber='+this.$route.query.issueNumber);
                 let code:string = <string>this.$route.query.code;
