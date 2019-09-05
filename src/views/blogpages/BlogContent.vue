@@ -24,7 +24,7 @@
                 accessToken:{{loginInfo.accessToken}}<br>
                 loginAvatar:{{loginInfo.loginAvatar}}
 
-                <span style="display: inline-block;padding: 10px;background-color: #2ab1f0;cursor: pointer;color: white" @click="toLogin">登录</span>
+                <span v-if="loginInfo.accessToken" style="display: inline-block;padding: 10px;background-color: #2ab1f0;cursor: pointer;color: white" @click="toLogin">登录</span>
             </div>
             <div class="blog-comment">
                 <div class="title">
@@ -71,7 +71,21 @@
         pageSize:number = 10;
 
         created(){
-            this.initData();
+            console.log('window.location.href=============》',window.location.href)
+            if(window.location.href.indexOf('?code=')!==-1&&!this.$route.query.code){
+                console.log(`进入1重新转到2`)
+                history.pushState({code:'1'},'my_blog','www.kajie88.com');
+                this.$router.push({name:'blog_content',query:{...this.$route.query,code:window.location.href.substring(window.location.href.indexOf('?code=')+6,window.location.href.indexOf('#'))}})
+            }else {
+                history.pushState({code:'1'},'my_blog','#/blog_content?issueNumber='+this.$route.query.issueNumber);
+                let code:string = <string>this.$route.query.code;
+                if(code){
+                    this.$githubApi.getToken({code:code});
+                }
+                console.log(`进入2`)
+                this.initData();
+            }
+            console.log(this.$route)
         }
         toLogin(){
             // console.log(window.location.href)
@@ -86,7 +100,7 @@
                 this.markDownBody = <string>await this.$githubApi.getMdContent({text:this.blogContent.body});
                 this.markDownBody = this.markDownBody.replace(/<a href="([^"]*).* src="([^"]*).* alt="([^"]*)".* data-canonical-src="([^"]*)".*<\/a>/gi,`<a href="$4" target="_blank" rel="nofollow"><img src="$4" alt="$3" data-canonical-src="$4" style="max-width:100%;"></a>`)
             })();
-            this.$githubApi.getLoginUserInfo();
+            // this.$githubApi.getLoginUserInfo();
             this.getCommentList();
         }
         async getCommentList(){

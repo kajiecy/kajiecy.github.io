@@ -35,7 +35,7 @@
             this.$githubApi.toLogin();
         }
         async getToken(){
-            await this.$githubApi.getToken({code:'ce0318f80b1a67234c1f'});
+            await this.$githubApi.getToken({code:'09884ecc7994a842b01e'});
         }
         async createComment(){
             let newCommentInfo = await this.$githubApi.createComment({comment:'111'})
