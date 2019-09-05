@@ -79,15 +79,15 @@
                 history.pushState({code:'1'},'my_blog','#/blog_content?issueNumber='+this.$route.query.issueNumber);
                 let code:string = <string>this.$route.query.code;
                 if(code){
-
                     this.$githubApi.getToken({code:code}).then(()=>{
-                        console.log('请求成功')
+                        // @ts-ignore
+                        this.$route.query.code = null;
+                        this.initData();
                     });
+                }else {
+                    this.initData();
                 }
-                console.log(`进入2`)
-                this.initData();
             }
-            console.log(this.$route)
         }
         toLogin(){
             // console.log(window.location.href)

@@ -38,7 +38,7 @@ class GithubApi {
      * @param redirectUri 用户登录成功后的跳转地址填空转跳到配置的地址中
      */
     toLogin(redirectUri:string=''):void{
-        window.open(GithubUrlEnum.toLogin+`?scope=public_repo&client_id=${this._clientId}&client_secret=${this._clientSecret}${redirectUri?'&redirect_uri='+redirectUri:''}`);
+        window.open(GithubUrlEnum.toLogin+`?scope=public_repo&client_id=${this._clientId}&client_secret=${this._clientSecret}${redirectUri?'&redirect_uri='+redirectUri:''}`,'_self');
     }
     getToken({code}:{code:string}):Promise<Object>{
         //此处地址需要转发否则跨域
