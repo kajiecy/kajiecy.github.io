@@ -74,13 +74,15 @@
             console.log('window.location.href=============》',window.location.href)
             if(window.location.href.indexOf('?code=')!==-1&&!this.$route.query.code){
                 console.log(`进入1重新转到2`)
-                history.pushState({code:'1'},'my_blog','www.kajie88.com');
                 this.$router.push({name:'blog_content',query:{...this.$route.query,code:window.location.href.substring(window.location.href.indexOf('?code=')+6,window.location.href.indexOf('#'))}})
             }else {
                 history.pushState({code:'1'},'my_blog','#/blog_content?issueNumber='+this.$route.query.issueNumber);
                 let code:string = <string>this.$route.query.code;
                 if(code){
-                    this.$githubApi.getToken({code:code});
+
+                    this.$githubApi.getToken({code:code}).then(()=>{
+                        console.log('请求成功')
+                    });
                 }
                 console.log(`进入2`)
                 this.initData();
