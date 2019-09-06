@@ -38,7 +38,7 @@
             await this.$githubApi.getToken({code:'09884ecc7994a842b01e'});
         }
         async createComment(){
-            let newCommentInfo = await this.$githubApi.createComment({comment:'111'})
+            let newCommentInfo = await this.$githubApi.createComment({comment:'111',issueNumber:'1'});
         }
         async getLabels(){
             let labels = await this.$githubApi.labelsList4Repository();

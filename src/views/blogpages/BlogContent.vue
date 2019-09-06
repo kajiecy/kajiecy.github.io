@@ -20,12 +20,34 @@
                 <span class="tag-item" style="background-color:#67C23A;cursor: pointer" @click="$router.push({name:'blog_list',query:{milestone:blogContent.milestone.number}})"><i class="iconfont icon-leimupinleifenleileibie"></i>{{blogContent.milestone.title}}</span>
             </div>
             <article class="markdown-body" v-html="markDownBody"></article>
-            <div>
-                accessToken:{{loginInfo.accessToken}}<br>
-                loginAvatar:{{loginInfo.loginAvatar}}
-
-                <span v-if="!loginInfo.accessToken" style="display: inline-block;padding: 10px;background-color: #2ab1f0;cursor: pointer;color: white" @click="toLogin">登录</span>
-                <span v-else style="display: inline-block;padding: 10px;background-color: #2ab1f0;cursor: pointer;color: white" @click="loginOut">注销</span>
+            <div class="do-comment">
+                <div class="title">
+                    <span class="right-span">
+                        <span class="statue-show">
+                            GitHub {{!loginInfo.accessToken?"未登录":"已登录"}}!
+                        </span>
+                        <span v-if="!loginInfo.accessToken" class="login-button" @click="toLogin">
+                            登录
+                        </span>
+                        <span v-else class="login-button" @click="loginOut">
+                            退出
+                        </span>
+                    </span>
+                </div>
+                <div class="body dis_table wd100">
+                    <div class="dis_table_cell">
+                        <i v-if="!loginInfo.accessToken" class="iconfont icon-wode-weidenglu"></i>
+                        <img v-else :src="loginInfo.loginAvatar" width="40" height="40">
+                    </div>
+                    <div class="dis_table_cell">
+                        <textarea v-model="commentBody" :placeholder="!loginInfo.accessToken?'登录后才可以留言哦~':'欢迎留言评论！'" :disabled="!loginInfo.accessToken"></textarea>
+                        <div class="comment_button">
+                            <span @click="sendComment">
+                                评 论
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="blog-comment">
                 <div class="title">
@@ -38,13 +60,12 @@
                         <div class="dis_table_cell comment_user_avatar" style="width: 44px;vertical-align: top">
                             <img width="44" height="44" :src="item.user.avatar_url" alt="">
                         </div>
-                        <div class="table-right dis_table_cell textleft" style="vertical-align: top">
+                        <div class="table-right dis_table_cell textleft vertical-top">
                             <div>
                                 <a class="comment_user_name" :href="'https://github.com/'+item.user.login" target="_blank">{{item.user.login}}</a>
                                 <span class="comment_time">{{formatDate(item.created_at,1)}}</span>
                             </div>
-                            <div class="comment_content">
-                                {{item.body}}
+                            <div class="comment_content markdown-body" v-html="item.body">
                             </div>
                         </div>
                     </div>
@@ -65,11 +86,12 @@
         },
     })
     export default class BlogList extends Vue {
-        blogContent:any = {labels:[],created_at:'',body:'',milestone:{}};
+        blogContent:any = {labels:[],created_at:'',body:'',milestone:{},comments:0};
         markDownBody:string = '';
         commentList:any = [];
         pageNum:number = 1;
         pageSize:number = 10;
+        commentBody:string = '';
 
         created(){
             if(window.location.href.indexOf('?code=')!==-1&&!this.$route.query.code){
@@ -96,14 +118,19 @@
         get loginInfo(){
             return {accessToken:localStorage.getItem(GithubConfig.LOCALSTORAGE_NAME),loginAvatar:localStorage.getItem(GithubConfig.LOCALSTORAGE_LOGIN_AVATAR)}
         }
-        async initData(){
+        async initData({toLastPage}:{toLastPage:boolean}={toLastPage:false}){
             (async()=>{
                 this.blogContent = await this.$githubApi.getIssuesContent({issueNumber:this.$route.query.issueNumber});
                 this.markDownBody = <string>await this.$githubApi.getMdContent({text:this.blogContent.body});
                 this.markDownBody = this.markDownBody.replace(/<a href="([^"]*).* src="([^"]*).* alt="([^"]*)".* data-canonical-src="([^"]*)".*<\/a>/gi,`<a href="$4" target="_blank" rel="nofollow"><img src="$4" alt="$3" data-canonical-src="$4" style="max-width:100%;"></a>`)
+                if(toLastPage){
+                    this.pageNum = Math.ceil(this.blogContent.comments/this.pageSize)
+                    this.getCommentList();
+                }
             })();
-            // this.$githubApi.getLoginUserInfo();
-            this.getCommentList();
+            if(!toLastPage){
+                this.getCommentList();
+            }
         }
         async getCommentList(){
             this.commentList = await this.$githubApi.getCommentList4Issues({issueNumber:this.$route.query.issueNumber,page:this.pageNum,perPage:this.pageSize});
@@ -161,6 +188,12 @@
             console.log('changePage_____>')
             this.pageNum = pageNum;
             this.getCommentList();
+        }
+        async sendComment(){
+            let markDownCommentBody =  <string>await this.$githubApi.getMdContent({text:this.commentBody});
+            await this.$githubApi.createComment({comment:markDownCommentBody,issueNumber:this.blogContent.number});
+            this.commentBody = '';
+            this.initData({toLastPage:true});
         }
     }
 </script>
@@ -265,7 +298,72 @@
                                 color: #656C7A;
                             }
                             .comment_content{
-                                padding: 5px 0;
+                                /*padding: 5px 0;*/
+                            }
+                        }
+                    }
+                }
+            }
+            .do-comment{
+                .title{
+                    padding: 5px 0;
+                    overflow: hidden;
+                    .right-span{
+                        display: inline-block;
+                        float: right;
+                        font-size: 12px;
+                        .statue-show{
+                            color: #9ca2a8;
+                        }
+                        .login-button{
+                            color: #258EFB;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .body{
+                    .dis_table_cell:nth-child(1){
+                        width: 60px;
+                        text-align: center;
+                        vertical-align: top;
+                        img{
+                            border-radius: 50%;
+                        }
+
+                        .icon-wode-weidenglu{
+                            font-size: 40px;
+                            line-height: 40px;
+                            /*color: #258EFB;*/
+                            color: #D8D8CB;
+                        }
+                    }
+                    .dis_table_cell:nth-child(2) {
+                        text-align: left;
+                        vertical-align: top;
+                        textarea{
+                            border: 2px solid #eee;
+                            display: block;
+                            width: 100%;
+                            height: 116px;
+                            padding: 10px;
+                            outline: 0;
+                            resize: none;
+                            font-size: 14px;
+                        }
+                        .comment_button{
+                            height: 0;
+                            display: inline-block;
+                            float: right;
+                            span{
+                                cursor: pointer;
+                                user-select: none;
+                                display: inline-block;
+                                background-color: #258EFB;
+                                color: white;
+                                padding: 8px 35px;
+                                position: relative;
+                                top: -36px;
+                                right: 1px;
                             }
                         }
                     }

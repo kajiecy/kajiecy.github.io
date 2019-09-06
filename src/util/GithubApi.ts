@@ -146,11 +146,14 @@ class GithubApi {
 
     /**
      * 创建一条评论 需要登录
-     * @param comment 评论内容
+     * @param comment
+     * @param issueNumber
      */
-    async createComment({comment}:{comment:string}){
+    async createComment({comment,issueNumber}:{comment:string,issueNumber:string}){
         return new Promise(async (resolve, reject) => {
             let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.createComment,this);
+            realUrl = commonUtil.replaceGithubUrl(realUrl,{_issue_number:issueNumber});
+
             let res = await this._post(realUrl,{body:comment});
 
             if(res.id){
