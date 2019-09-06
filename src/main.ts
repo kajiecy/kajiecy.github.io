@@ -4,10 +4,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import GithubApi from '@/util/GithubApi.ts'; // @ is an alias to /src
-
-import '@/assets/css/main.scss';
-import '@/assets/css/common.scss';
 import 'github-markdown-css/github-markdown.css';
+
+import '@/assets/css/common.scss';
+import '@/assets/css/main.scss';
 
 
 Vue.config.productionTip = false;

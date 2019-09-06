@@ -22,7 +22,7 @@
                 </div>
             </div>
         </template>
-        <page-component :pageNum="pageNum" :pageSize="pageSize" :total="$store.state.repoInfo.open_issues_count" @changePage="changePage"></page-component>
+        <page-component v-if="issuesList.length" :pageNum="pageNum" :pageSize="pageSize" :total="$store.state.repoInfo.open_issues_count" @changePage="changePage"></page-component>
     </div>
 </template>
 <script lang="ts">

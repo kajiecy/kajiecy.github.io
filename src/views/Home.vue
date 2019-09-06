@@ -138,7 +138,7 @@
     export default class Home extends Vue {
         bloggerInfo: any = {};
         routeKey:number = Math.random();
-        leftMenuState:boolean = true;
+        leftMenuState:boolean = false;
         created() {
         }
         mounted() {
@@ -193,7 +193,6 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: 240px 960px;
-            transition: all 1000ms;
 
             .left-info {
                 display: inline-block;
@@ -425,6 +424,9 @@
                     }
                 }
             }
+            .grid-body{
+                width: 100%;
+            }
             /*.grid-body {*/
             /*    flex: 0 0 960px;*/
             /*    display: inline-grid;*/
@@ -435,14 +437,28 @@
         @media (max-width: 1200px) {
             .home-body{
                 width: 100%;
-                grid-template-columns: 240px 1fr
+                /*grid-template-columns: 240px 1fr*/
+                display: block;
+                margin-top: -16px;
+                .left-info{
+                    width: 240px;
+                    .left-info-fix{
+                        padding-top: 3px;
+                    }
+                }
+                .grid-body{
+                    margin-left: 240px;
+                    width: calc( 100% - 240px );
+                }
             }
         }
         @media (max-width: 1000px) {
             .home-body{
                 width: 100%;
-                grid-template-columns: 0 1fr;
+                /*grid-template-columns: 0 1fr;*/
+                display: block;
                 .left-info{
+
                     .left-info-fix.menu_close{
                         width: 0;
                     }
@@ -459,6 +475,10 @@
                 }
                 .home-header{
                     display: block;
+                }
+                .grid-body{
+                    margin-left: 0;
+                    width: calc( 100% );
                 }
             }
         }

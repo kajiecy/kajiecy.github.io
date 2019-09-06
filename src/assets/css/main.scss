@@ -19,3 +19,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
     -moz-font-feature-settings: "liga", "kern";
 }
+
+
+.markdown-body pre{
+    width: 100%;
+    code{
+    }
+}

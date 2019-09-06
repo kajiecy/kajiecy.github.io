@@ -7,7 +7,6 @@
                 </template>
                 <template v-else>
                     <div style="width: 100%;height: 100%;background-color: #e4e3e6">
-
                     </div>
                 </template>
                 <div class="title-div">
@@ -77,19 +76,27 @@
                     </span>
                 </div>
                 <div class="body">
-                    <div class="item dis_table wd100" v-for="(item) in commentList">
-                        <div class="dis_table_cell comment_user_avatar" style="width: 44px;vertical-align: top">
-                            <img width="44" height="44" :src="item.user.avatar_url" alt="">
-                        </div>
-                        <div class="table-right dis_table_cell textleft vertical-top">
-                            <div style="">
-                                <a class="comment_user_name" :href="'https://github.com/'+item.user.login" target="_blank">{{item.user.login}}</a>
-                                <span class="comment_time">{{formatDate(item.created_at,1)}}</span>
+                    <template v-if="commentList.length">
+                        <div class="item dis_table wd100" v-for="(item) in commentList">
+                            <div class="dis_table_cell comment_user_avatar" style="width: 44px;vertical-align: top">
+                                <img width="44" height="44" :src="item.user.avatar_url" alt="">
                             </div>
-                            <div class="comment_content markdown-body" v-html="item.body"></div>
+                            <div class="table-right dis_table_cell textleft vertical-top">
+                                <div style="">
+                                    <a class="comment_user_name" :href="'https://github.com/'+item.user.login" target="_blank">{{item.user.login}}</a>
+                                    <span class="comment_time">{{formatDate(item.created_at,1)}}</span>
+                                </div>
+                                <div class="comment_content markdown-body" v-html="item.body"></div>
+                            </div>
                         </div>
-                    </div>
-                    <page-component :pageNum="pageNum" :pageSize="pageSize" :total="blogContent.comments" @changePage="changePage"></page-component>
+                    </template>
+                    <template v-else>
+                        <div style="text-align: center;padding: 20px;">
+                            暂无评论，欢迎留言！！
+                        </div>
+                    </template>
+
+                    <page-component v-if="blogContent.comments" :pageNum="pageNum" :pageSize="pageSize" :total="blogContent.comments" @changePage="changePage"></page-component>
                 </div>
             </div>
         </div>
