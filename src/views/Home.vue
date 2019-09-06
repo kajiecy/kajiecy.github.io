@@ -1,9 +1,9 @@
 <template>
     <div class="home">
-<!--        <div style="position:absolute" >-->
-<!--            <button v-if="!token" style="position:absolute" @click="setToken">setToken</button>-->
-<!--            <span v-else>{{token}}</span>-->
-<!--        </div>-->
+        <!--<div style="position:absolute" >-->
+            <!--<button v-if="!token" style="position:absolute" @click="setToken">setToken</button>-->
+            <!--<span v-else>{{token}}</span>-->
+        <!--</div>-->
         <div class="home-background-div"></div>
         <div class="home-body">
             <div class="left-info">
@@ -117,7 +117,9 @@
                         </div>
                     </div>
                 </div>
-                <router-view :key="routeKey"></router-view>
+                <transition name="up-down" mode="out-in">
+                    <router-view :key="routeKey"></router-view>
+                </transition>
             </div>
         </div>
     </div>
@@ -144,7 +146,7 @@
         mounted() {
             this.$githubApi.getBloggerInfo().then((bloggerInfo)=>this.bloggerInfo = bloggerInfo);
             // @ts-ignore
-            this.$githubApi.labelsList4Repository().then((labelsList)=>this.$store.commit('setLabelsList',labelsList.filter((item)=>{return item.name.indexOf(':img')===-1})));
+            this.$githubApi.labelsList4Repository().then((labelsList:any)=>this.$store.commit('setLabelsList',labelsList.filter((item)=>{return item.name.indexOf(':img')===-1})));
             this.$githubApi.milestonesList4Repository().then((milestonesList)=>this.$store.commit('setMilestonesList',milestonesList))
             this.$githubApi.getRepoInfo().then((repoInfo)=>{this.$store.commit('setRepoInfo',repoInfo)})
         }
@@ -173,6 +175,39 @@
     }
 </script>
 <style lang="scss">
+    /* 1. 定义进入过渡的开始状态； */
+    .up-down-enter{
+        /*transform: scaleY(0);*/
+        transform: scale3d(0,0,1);
+
+    }
+    /* 2. 定义进入过渡生效时的状态；这个类可以被用来定义进入过渡的过程时间，延迟和曲线函数。 */
+    .up-down-enter-active {
+        transition: all .5s;
+    }
+    /* 3. 定义进入过渡的结束状态； */
+    .up-down-enter-to {
+        /*transform: scaleY(1);*/
+        transform: scale3d(1,1,1);
+
+    }
+    /* 4. 定义离开过渡的开始状态； */
+    .up-down-leave {
+        /*transform: scale3d(1,1,0);*/
+        opacity: 1;
+    }
+    /* 5. 定义离开过渡生效时的状态；这个类可以被用来定义离开过渡的过程时间，延迟和曲线函数。 */
+    .up-down-leave-active {
+        transition: all .3s;
+    }
+    /* 6. 定义离开过渡的结束状态； */
+    .up-down-leave-to {
+        /*transform: scaleY(0);*/
+        /*transform: scale3d(0,0,1);*/
+        opacity: 0;
+
+    }
+
     .home {
         .home-background-div {
             height: 100%;

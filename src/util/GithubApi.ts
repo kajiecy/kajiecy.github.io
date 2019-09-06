@@ -100,13 +100,13 @@ class GithubApi {
      * @param page
      * @param perPage
      */
-    async getIssuesList({creator,milestone,labels,page,perPage}:{creator?:string,milestone?:string|number,labels?:string,page?:number,perPage?:number}={}){
+    async getIssuesList({creator,milestone,labels,page,perPage}:{creator?:string,milestone?:string|number|null,labels?:string,page?:number,perPage?:number}={}){
         return new Promise(async (resolve, reject) => {
             let realUrl = commonUtil.replaceGithubUrl(GithubUrlEnum.getIssuesList,this);
             creator = creator||this._owner;
             page = page||1;
             perPage = perPage||10;
-            milestone = milestone||'*';
+            milestone = milestone||null;
             let res = await this._get(realUrl,{creator,milestone,labels,page,'per_page':perPage});
             resolve(res)
         });

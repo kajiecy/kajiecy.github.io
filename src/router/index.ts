@@ -55,6 +55,10 @@ let router = new Router({
       // @ts-ignore
       component: () => import(/* webpackChunkName: "about" */ '@/views/test/test.vue')
     },
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    console.log('出发scrollbehavior')
+    return { x: 0, y: 0 }
+  }
 })
 export default router;
