@@ -4,104 +4,104 @@
 <!--            <button v-if="!token" style="position:absolute" @click="setToken">setToken</button>-->
 <!--            <span v-else>{{token}}</span>-->
 <!--        </div>-->
-
-
         <div class="home-background-div"></div>
         <div class="home-body">
             <div class="left-info">
-                <div class="left-info-fix">
-                    <div class="left-info-body">
-                        <div class="user-avatar">
-                            <div class="img-div">
-                                <img :src="bloggerInfo.avatar_url" width="150" height="150" alt="">
+                <div class="left-info-fix " :class="leftMenuState?'menu_open':'menu_close'">
+                    <div class="overlay" @click="overLayClick">
+                        <div @click.stop="leftBodyClick" class="left-info-body">
+                            <div class="user-avatar">
+                                <div class="img-div">
+                                    <img :src="bloggerInfo.avatar_url" width="150" height="150" alt="">
+                                </div>
                             </div>
-                        </div>
-                        <div class="blog-count">
-                            <div>
-                                <span>文章</span><br>
-                                {{$store.state.repoInfo.open_issues_count?$store.state.repoInfo.open_issues_count:0}}
+                            <div class="blog-count">
+                                <div>
+                                    <span>文章</span><br>
+                                    {{$store.state.repoInfo.open_issues_count?$store.state.repoInfo.open_issues_count:0}}
+                                </div>
+                                <div>
+                                    <span>标签</span><br>
+                                    {{$store.state.labelsList.length}}
+                                </div>
+                                <div>
+                                    <span>分类</span><br>
+                                    {{$store.state.milestonesList.length}}
+                                </div>
                             </div>
-                            <div>
-                                <span>标签</span><br>
-                                {{$store.state.labelsList.length}}
-                            </div>
-                            <div>
-                                <span>分类</span><br>
-                                {{$store.state.milestonesList.length}}
-                            </div>
-                        </div>
-                        <span class="blog-function-list-item active" @click="$router.push('/')" title="我的首页">
+                            <span class="blog-function-list-item active" @click="$router.push('/')" title="我的首页">
                             <div class="list-item-content"><i class="item-icon iconfont icon-shouye"></i>我的首页</div>
                         </span>
-                        <span class="blog-function-list-item " @click="$router.push({name:'test'})" href="javascript:void(0)" title="关于博客">
+                            <span class="blog-function-list-item " @click="$router.push({name:'test'})" href="javascript:void(0)" title="关于博客">
                             <div class="list-item-content"><i class="item-icon iconfont icon-about"></i>关于博客</div>
                         </span>
 
-                        <div class="blog-widget-wrap">
-                            <h3 class="blog-widget-title">社交按钮</h3>
-                            <div class="blog-widget social-widget">
-                                <!-- github -->
-                                <a class="blog-widget-item" href="https://github.com/kajiecy/" target="_blank"
-                                   style="color:#191717;background-color:rgba(25,23,23,.1)"
-                                   rel="external nofollow noopener noreferrer" title="github">
-                                    <i class="iconfont icon-github"></i>
-                                </a>
-                                <!--QQ-->
-                                <a class="blog-widget-item"
-                                   href="http://wpa.qq.com/msgrd?v=3&amp;uin=851416347&amp;site=qq&amp;menu=yes"
-                                   target="_blank" style="color:#f9ae08;background-color:rgba(249,174,8,.1)"
-                                   rel="external nofollow noopener noreferrer" title="Click me!">
-                                    <i class="iconfont icon-tubiao215"></i>
-                                </a>
-                                <!--微信-->
-                                <a class="blog-widget-item" href="JavaScript:void(0)" target="_blank"
-                                   style="color:#7FD53E;background-color:rgba(14,71,161,.1)"
-                                   rel="external nofollow noopener noreferrer" title="wechat:cy851416347">
-                                    <i class="iconfont icon-weixin"></i>
-                                </a>
-                                <!--简书-->
-                                <a class="blog-widget-item" href="https://www.jianshu.com/u/5636d2922139"
-                                   target="_blank" style="color:#ffffff;background-color:#EA6F5A"
-                                   rel="external nofollow noopener noreferrer" title="简书">
-                                    <i class="iconfont jianshu">简</i>
-                                </a>
-                                <!--掘金-->
-                                <a class="blog-widget-item" href="https://juejin.im/user/5b8f2639e51d4538c4120c14"
-                                   target="_blank" style="color:#006CFF;background-color:rgba(14,71,161,.1)"
-                                   rel="external nofollow noopener noreferrer" title="掘金">
-                                    <i class="iconfont icon-juejin"></i>
-                                </a>
-                                <!--战网-->
-                                <a class="blog-widget-item" href="JavaScript:void(0)" target="_blank"
-                                   style="color:#3c57a4;background-color:rgba(60,87,164,.1)"
-                                   rel="external nofollow noopener noreferrer" title="卡杰#12345">
-                                    <i class="iconfont icon-battle-net"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="right-info-bottom">
-                        <div class="blog-widget-wrap blog-widget-tags">
-                            <h3 class="blog-widget-title">标签云</h3>
-                            <div class="blog-widget tag-widget">
-                                <span class="item" v-for="(item,index) in $store.state.labelsList" :style="{backgroundColor: '#'+item.color}" @click="$router.push({name:'blog_list',query:{tag:item.name}})">
-                                    # {{item.name}}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="blog-widget-wrap blog-widget-tags">
-                            <h3 class="blog-widget-title">文章分类</h3>
-                            <div class="blog-widget type-widget">
-                                <div class="item" v-for="(item,index) in $store.state.milestonesList"  @click="$router.push({name:'blog_list',query:{milestone:item.number}})">
-                                    {{item.title}} <span>{{item.open_issues}}</span>
+                            <div class="blog-widget-wrap">
+                                <h3 class="blog-widget-title">社交按钮</h3>
+                                <div class="blog-widget social-widget">
+                                    <!-- github -->
+                                    <a class="blog-widget-item" href="https://github.com/kajiecy/" target="_blank"
+                                       style="color:#191717;background-color:rgba(25,23,23,.1)"
+                                       rel="external nofollow noopener noreferrer" title="github">
+                                        <i class="iconfont icon-github"></i>
+                                    </a>
+                                    <!--QQ-->
+                                    <a class="blog-widget-item"
+                                       href="http://wpa.qq.com/msgrd?v=3&amp;uin=851416347&amp;site=qq&amp;menu=yes"
+                                       target="_blank" style="color:#f9ae08;background-color:rgba(249,174,8,.1)"
+                                       rel="external nofollow noopener noreferrer" title="Click me!">
+                                        <i class="iconfont icon-tubiao215"></i>
+                                    </a>
+                                    <!--微信-->
+                                    <a class="blog-widget-item" href="JavaScript:void(0)" target="_blank"
+                                       style="color:#7FD53E;background-color:rgba(14,71,161,.1)"
+                                       rel="external nofollow noopener noreferrer" title="wechat:cy851416347">
+                                        <i class="iconfont icon-weixin"></i>
+                                    </a>
+                                    <!--简书-->
+                                    <a class="blog-widget-item" href="https://www.jianshu.com/u/5636d2922139"
+                                       target="_blank" style="color:#ffffff;background-color:#EA6F5A"
+                                       rel="external nofollow noopener noreferrer" title="简书">
+                                        <i class="iconfont jianshu">简</i>
+                                    </a>
+                                    <!--掘金-->
+                                    <a class="blog-widget-item" href="https://juejin.im/user/5b8f2639e51d4538c4120c14"
+                                       target="_blank" style="color:#006CFF;background-color:rgba(14,71,161,.1)"
+                                       rel="external nofollow noopener noreferrer" title="掘金">
+                                        <i class="iconfont icon-juejin"></i>
+                                    </a>
+                                    <!--战网-->
+                                    <a class="blog-widget-item" href="JavaScript:void(0)" target="_blank"
+                                       style="color:#3c57a4;background-color:rgba(60,87,164,.1)"
+                                       rel="external nofollow noopener noreferrer" title="卡杰#12345">
+                                        <i class="iconfont icon-battle-net"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <div style="text-align: right;color: #9ca2a8;" class="mb20">
-                            © 2019 卡杰(kajiecy) Powered by <a class="blog-widget-item" href="https://github.com/kajiecy/"
-                                                             target="_blank" style="color:#258EFB;text-decoration: none"
-                                                             title="github">Myself</a>
+                        <div @click.stop="leftBodyClick" class="right-info-bottom">
+                            <div class="blog-widget-wrap blog-widget-tags">
+                                <h3 class="blog-widget-title">标签云</h3>
+                                <div class="blog-widget tag-widget">
+                                <span class="item" v-for="(item,index) in $store.state.labelsList" :style="{backgroundColor: '#'+item.color}" @click="$router.push({name:'blog_list',query:{tag:item.name}})">
+                                    # {{item.name}}
+                                </span>
+                                </div>
+                            </div>
+                            <div class="blog-widget-wrap blog-widget-tags">
+                                <h3 class="blog-widget-title">文章分类</h3>
+                                <div class="blog-widget type-widget">
+                                    <div class="item" v-for="(item,index) in $store.state.milestonesList"  @click="$router.push({name:'blog_list',query:{milestone:item.number}})">
+                                        {{item.title}} <span>{{item.open_issues}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="text-align: right;color: #9ca2a8;" class="pb20">
+                                © 2019 卡杰(kajiecy) Powered by <a class="blog-widget-item" href="https://github.com/kajiecy/"
+                                                                 target="_blank" style="color:#258EFB;text-decoration: none"
+                                                                 title="github">Myself</a>
 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                 <div class="home-header ">
                     <div class="dis_table wd100">
                         <div class="dis_table_cell">
-                            <i class="iconfont icon-caidan"></i>
+                            <i class="iconfont icon-caidan" @click="leftMenuState = true"></i>
                         </div>
                         <div class="dis_table_cell textcenter" style="width: 60px">
                             <img style="border-radius: 50%" :src="bloggerInfo.avatar_url" width="40" height="40" alt="">
@@ -138,6 +138,7 @@
     export default class Home extends Vue {
         bloggerInfo: any = {};
         routeKey:number = Math.random();
+        leftMenuState:boolean = true;
         created() {
         }
         mounted() {
@@ -161,6 +162,13 @@
         }
         get token(){
             return localStorage.getItem('token_access');
+        }
+        overLayClick(){
+            console.log('点击了')
+            this.leftMenuState = false;
+        }
+        leftBodyClick(){
+
         }
     }
 </script>
@@ -195,9 +203,14 @@
                     position: fixed;
                     height: 100vh;
                     overflow-y: auto;
+                    z-index: 2;
 
                     &::-webkit-scrollbar {
                         display: none;
+                    }
+
+                    .overlay{
+                        width: 240px;
                     }
 
                     .left-info-body {
@@ -283,9 +296,9 @@
                     .right-info-bottom {
                         width: 240px;
                         padding: 0 20px;
-
+                        overflow: hidden;
                         .blog-widget-wrap {
-                            margin: 16px 0;
+                            margin: 16px 0 16px 0;
                         }
 
                         .tag-widget {
@@ -430,10 +443,17 @@
                 width: 100%;
                 grid-template-columns: 0 1fr;
                 .left-info{
-                    .left-info-fix{
-                        /*width: 0px;*/
-                        background-color: #2ab1f0;
-                        z-index: 2;
+                    .left-info-fix.menu_close{
+                        width: 0;
+                    }
+                    .left-info-fix.menu_open{
+                        .overlay{
+                            width: 100vh;
+                            background-color: rgba(0,0,0,0.4);
+                        }
+                        .left-info-body,.right-info-bottom{
+                            background-color: #ffffff;
+                        }
 
                     }
                 }
