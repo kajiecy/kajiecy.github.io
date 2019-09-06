@@ -14,6 +14,7 @@ export default new Vuex.Store({
         labelsList:[],
         milestonesList:[],
         repoInfo:{open_issues_count:0},
+        templateIssuesInfo:{},
     },
     mutations: {
         setLabelsList(state,labelsList:any){
@@ -26,6 +27,9 @@ export default new Vuex.Store({
         },
         setRepoInfo(state,repoInfo:any){
             state.repoInfo = repoInfo;
+        },
+        setTemplateIssuesInfo(state,templateIssuesInfo:any){
+            state.templateIssuesInfo = templateIssuesInfo;
         },
     },
     getters:{

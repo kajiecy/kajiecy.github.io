@@ -147,7 +147,11 @@
         }
         async initData({toLastPage}:{toLastPage:boolean}={toLastPage:false}){
             (async()=>{
-                this.blogContent = await this.$githubApi.getIssuesContent({issueNumber:this.$route.query.issueNumber});
+                if(this.$store.state.templateIssuesInfo.id){
+                    this.blogContent = this.$store.state.templateIssuesInfo;
+                }else {
+                    this.blogContent = await this.$githubApi.getIssuesContent({issueNumber:this.$route.query.issueNumber});
+                }
                 this.markDownBody = <string>await this.$githubApi.getMdContent({text:this.blogContent.body});
                 this.markDownBody = this.markDownBody.replace(/<a href="([^"]*).* src="([^"]*).* alt="([^"]*)".* data-canonical-src="([^"]*)".*<\/a>/gi,`<a href="$4" target="_blank" rel="nofollow"><img src="$4" alt="$3" data-canonical-src="$4" style="max-width:100%;"></a>`)
                 if(toLastPage){

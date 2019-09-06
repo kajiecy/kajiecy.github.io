@@ -2,7 +2,7 @@
     <div class="blog-list">
         <template v-for="(item,index) in issuesList">
             <div class="blog-list-item">
-                <div class="img-div" @click="$router.push({name:'blog_content',query:{issueNumber:item.number}})">
+                <div class="img-div" @click="pushToContent(item)">
                     <img :src="getBlogImg(item)" width="100%" height="100%">
                     <div class="title-div">
                         {{item.title}}
@@ -103,6 +103,10 @@
             console.log('changePage_____>')
             this.pageNum = pageNum;
             this.searchIssuesList();
+        }
+        pushToContent(item){
+            this.$store.commit('setTemplateIssuesInfo',item);
+            this.$router.push({name:'blog_content',query:{issueNumber:item.number}})
         }
     }
 </script>

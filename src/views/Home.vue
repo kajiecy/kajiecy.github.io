@@ -178,7 +178,8 @@
     /* 1. 定义进入过渡的开始状态； */
     .up-down-enter{
         /*transform: scaleY(0);*/
-        transform: scale3d(0,0,1);
+        opacity: 0;
+        transform: scale3d(0.5,0.5,1);
 
     }
     /* 2. 定义进入过渡生效时的状态；这个类可以被用来定义进入过渡的过程时间，延迟和曲线函数。 */
@@ -188,6 +189,7 @@
     /* 3. 定义进入过渡的结束状态； */
     .up-down-enter-to {
         /*transform: scaleY(1);*/
+        opacity: 1;
         transform: scale3d(1,1,1);
 
     }
@@ -226,16 +228,18 @@
         .home-body {
             width: 1200px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 240px 960px;
+            display: block;
+            /*grid-template-columns: 240px 960px;*/
 
             .left-info {
                 display: inline-block;
                 width: 240px;
 
                 .left-info-fix {
+                    margin-top: -23px;
+                    padding-top: 10px;
                     position: fixed;
-                    height: 100.5vh;
+                    height: 101vh;
                     overflow-y: auto;
                     z-index: 2;
                     -webkit-overflow-scrolling:touch;
@@ -442,8 +446,6 @@
 
                     }
                 }
-
-
             }
             .home-header{
                 display: none;
@@ -461,7 +463,9 @@
                 }
             }
             .grid-body{
-                width: 100%;
+                margin-left: 240px;
+                margin-top: -20px;
+                width: 960px;
             }
             /*.grid-body {*/
             /*    flex: 0 0 960px;*/
@@ -475,11 +479,9 @@
                 width: 100%;
                 /*grid-template-columns: 240px 1fr*/
                 display: block;
-                margin-top: -16px;
                 .left-info{
                     width: 240px;
                     .left-info-fix{
-                        padding-top: 3px;
                     }
                 }
                 .grid-body{
