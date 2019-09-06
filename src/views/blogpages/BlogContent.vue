@@ -241,11 +241,12 @@
             .img-div {
                 height: 500px;
                 border-radius: 10px;
-                /*border-top-right-radius: 10px;*/
-                /*border-top-left-radius: 10px;*/
                 overflow: hidden;
                 cursor: pointer;
                 user-select: none;
+                @media (max-width: 1000px) {
+                    height: 50vw;
+                }
             }
 
             .title-div {

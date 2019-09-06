@@ -126,8 +126,9 @@
                 overflow: hidden;
                 cursor: pointer;
                 user-select: none;
-                /*box-shadow: 0 0 1rem rgba(161, 177, 204, .4);*/
-
+                @media (max-width: 1000px) {
+                    height: 50vw;
+                }
             }
 
             .title-div {
@@ -135,7 +136,7 @@
                 top: -55px;
                 line-height: 42px;
                 left: 0;
-                font-size: 32px;
+                font-size: 1.5em;
                 color: white;
                 padding: 5px 10px;
                 background: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.4));

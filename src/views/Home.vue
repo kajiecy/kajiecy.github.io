@@ -130,7 +130,7 @@
         'beforeRouteEnter',
         'beforeRouteLeave',
         'beforeRouteUpdate',
-    ])
+    ]);
 
     @Component({
         components: {},
@@ -153,7 +153,7 @@
             this.routeKey = Math.random();
         }
         setToken(){
-            let token = window.prompt("token","input token!")
+            let token = window.prompt("token","input token!");
             if(token){
                 localStorage.setItem('token_access',<string>token);
                 localStorage.setItem('login_avatar','https://avatars1.githubusercontent.com/u/28913648?v=4');
