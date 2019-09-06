@@ -200,9 +200,10 @@
 
                 .left-info-fix {
                     position: fixed;
-                    height: 100vh;
+                    height: 100.5vh;
                     overflow-y: auto;
                     z-index: 2;
+                    -webkit-overflow-scrolling:touch;
 
                     &::-webkit-scrollbar {
                         display: none;
@@ -458,7 +459,6 @@
                 /*grid-template-columns: 0 1fr;*/
                 display: block;
                 .left-info{
-
                     .left-info-fix.menu_close{
                         width: 0;
                     }
@@ -483,6 +483,4 @@
             }
         }
     }
-
-
 </style>
