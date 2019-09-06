@@ -13,7 +13,6 @@
   export default class LoginCallBack extends Vue {
     code:String|any = '';
     mounted(){
-      console.log(`print code `,this.$route);
       this.code = this.$route.query.code;
     }
   }

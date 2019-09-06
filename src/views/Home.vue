@@ -1,13 +1,10 @@
 <template>
     <div class="home">
-        <div style="position:absolute" >
-            <button v-if="!token" style="position:absolute" @click="setToken">setToken</button>
-            <span v-else>{{token}}</span>
-        </div>
+<!--        <div style="position:absolute" >-->
+<!--            <button v-if="!token" style="position:absolute" @click="setToken">setToken</button>-->
+<!--            <span v-else>{{token}}</span>-->
+<!--        </div>-->
 
-<!--        {{$store.state.labelsList}}-->
-<!--        <div>11111111111</div>-->
-<!--        {{$store.state.milestonesList}}-->
 
         <div class="home-background-div"></div>
         <div class="home-body">
@@ -110,6 +107,16 @@
                 </div>
             </div>
             <div class="grid-body">
+                <div class="home-header ">
+                    <div class="dis_table wd100">
+                        <div class="dis_table_cell">
+                            <i class="iconfont icon-caidan"></i>
+                        </div>
+                        <div class="dis_table_cell textcenter" style="width: 60px">
+                            <img style="border-radius: 50%" :src="bloggerInfo.avatar_url" width="40" height="40" alt="">
+                        </div>
+                    </div>
+                </div>
                 <router-view :key="routeKey"></router-view>
             </div>
         </div>
@@ -151,7 +158,6 @@
                 localStorage.setItem('login_avatar','https://avatars1.githubusercontent.com/u/28913648?v=4');
                 window.history.go(0);
             }
-
         }
         get token(){
             return localStorage.getItem('token_access');
@@ -179,6 +185,7 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: 240px 960px;
+            transition: all 1000ms;
 
             .left-info {
                 display: inline-block;
@@ -251,7 +258,6 @@
                                 font-size: 16px;
                                 font-weight: 400;
                                 line-height: 20px;
-                                transition: all .5s;
 
                                 border-radius: 10px;
 
@@ -273,10 +279,7 @@
                                 box-shadow: 0 2px 12px #258EFB;
                             }
                         }
-
-
                     }
-
                     .right-info-bottom {
                         width: 240px;
                         padding: 0 20px;
@@ -394,7 +397,21 @@
 
 
             }
+            .home-header{
+                display: none;
 
+                width: 100%;
+                background-color: #ffffff;
+                padding: 10px;
+                .dis_table_cell:first-child{
+                    text-align: left;
+                    padding-left: 10px;
+                    i{
+                        cursor: pointer;
+                        font-size: 18px;
+                    }
+                }
+            }
             /*.grid-body {*/
             /*    flex: 0 0 960px;*/
             /*    display: inline-grid;*/
@@ -402,6 +419,30 @@
             /*    grid-gap: 16px 32px;*/
             /*}*/
         }
+        @media (max-width: 1200px) {
+            .home-body{
+                width: 100%;
+                grid-template-columns: 240px 1fr
+            }
+        }
+        @media (max-width: 1000px) {
+            .home-body{
+                width: 100%;
+                grid-template-columns: 0 1fr;
+                .left-info{
+                    .left-info-fix{
+                        /*width: 0px;*/
+                        background-color: #2ab1f0;
+                        z-index: 2;
 
+                    }
+                }
+                .home-header{
+                    display: block;
+                }
+            }
+        }
     }
+
+
 </style>

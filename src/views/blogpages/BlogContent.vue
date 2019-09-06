@@ -2,7 +2,14 @@
     <div class="blog-content">
         <div class="blog-content-body">
             <div class="img-div">
-                <img :src="getBlogImg(blogContent)" width="100%" height="100%">
+                <template v-if="getBlogImg(blogContent)">
+                    <img :src="getBlogImg(blogContent)" width="100%" height="100%">
+                </template>
+                <template v-else>
+                    <div style="width: 100%;height: 100%;background-color: #e4e3e6">
+
+                    </div>
+                </template>
                 <div class="title-div">
                     {{blogContent.title}}
                 </div>
@@ -243,6 +250,7 @@
 
             .title-div {
                 position: relative;
+                height: 52px;
                 top: -55px;
                 line-height: 42px;
                 left: 0;
