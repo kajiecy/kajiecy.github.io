@@ -40,14 +40,28 @@
                         <img v-else :src="loginInfo.loginAvatar" width="40" height="40">
                     </div>
                     <div class="dis_table_cell">
-                        <textarea v-model="commentBody" :placeholder="!loginInfo.accessToken?'登录后才可以留言哦~':'欢迎留言评论！'" :disabled="!loginInfo.accessToken"></textarea>
-                        <div class="comment_button">
-                            <span @click="sendComment">
-                                评 论
-                            </span>
+                        <div class="preview-switch">
+                            <span :class="!previewMode?'active':''" @click="changePreviewMode(false)">编辑</span>
+                            <span class="halving-line">|</span>
+                            <span :class="!previewMode?'':'active'" @click="changePreviewMode(true)">预览</span>
+                        </div>
+                        <template v-if="!previewMode">
+                            <textarea v-model="commentBody" :placeholder="!loginInfo.accessToken?'登录后才可以留言哦~':'欢迎留言评论！'" :disabled="!loginInfo.accessToken"></textarea>
+                            <div class="comment_button">
+                                <span @click="sendComment">
+                                    评 论
+                                </span>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div class="preview-body markdown-body" v-html="previewContent"></div>
+                        </template>
+                        <div class="tips">
+                            注：评论功能现已全面支持 Markdown 语法！
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="blog-comment">
                 <div class="title">
@@ -61,12 +75,11 @@
                             <img width="44" height="44" :src="item.user.avatar_url" alt="">
                         </div>
                         <div class="table-right dis_table_cell textleft vertical-top">
-                            <div>
+                            <div style="">
                                 <a class="comment_user_name" :href="'https://github.com/'+item.user.login" target="_blank">{{item.user.login}}</a>
                                 <span class="comment_time">{{formatDate(item.created_at,1)}}</span>
                             </div>
-                            <div class="comment_content markdown-body" v-html="item.body">
-                            </div>
+                            <div class="comment_content markdown-body" v-html="item.body"></div>
                         </div>
                     </div>
                     <page-component :pageNum="pageNum" :pageSize="pageSize" :total="blogContent.comments" @changePage="changePage"></page-component>
@@ -92,7 +105,8 @@
         pageNum:number = 1;
         pageSize:number = 10;
         commentBody:string = '';
-
+        previewMode:boolean = false;
+        previewContent:string = '';
         created(){
             if(window.location.href.indexOf('?code=')!==-1&&!this.$route.query.code){
                 (async()=>{
@@ -100,7 +114,6 @@
                     let loginUserInfo:any = await this.$githubApi.getLoginUserInfo()
                     localStorage.setItem(GithubConfig.LOCALSTORAGE_LOGIN_AVATAR,loginUserInfo.avatar_url);
                     window.location.href = window.location.href.substring(0,window.location.href.indexOf('?code='))+window.location.href.substring(window.location.href.indexOf('#'));
-
                 })()
             }else {
                 this.initData();
@@ -194,6 +207,14 @@
             await this.$githubApi.createComment({comment:markDownCommentBody,issueNumber:this.blogContent.number});
             this.commentBody = '';
             this.initData({toLastPage:true});
+        }
+        async changePreviewMode(previewMode:boolean){
+            if(previewMode){
+                this.previewContent = <string>await this.$githubApi.getMdContent({text:this.commentBody});
+            } else {
+                this.previewContent = '';
+            }
+            this.previewMode = previewMode;
         }
     }
 </script>
@@ -296,6 +317,8 @@
                             .comment_time{
                                 font-size: 12px;
                                 color: #656C7A;
+                                position: relative;
+                                bottom: -1px
                             }
                             .comment_content{
                                 /*padding: 5px 0;*/
@@ -340,6 +363,29 @@
                     .dis_table_cell:nth-child(2) {
                         text-align: left;
                         vertical-align: top;
+
+                        .preview-switch{
+                            color: #999;
+                            font-size: 14px;
+                            opacity: 0.9;
+                            cursor: pointer;
+                            height: 0;
+                            display: inline-block;
+                            float: right;
+                            padding: 0 5px 0 5px;
+                            position: relative;
+                            top: 2px;
+                            .halving-line{
+                                font-size: 18px;
+                                display: inline-block;
+                                padding: 0 5px;
+                                cursor: auto;
+                            }
+                            .active{
+                                color: #258EFB;
+                            }
+                        }
+
                         textarea{
                             border: 2px solid #eee;
                             display: block;
@@ -350,6 +396,7 @@
                             resize: none;
                             font-size: 14px;
                         }
+
                         .comment_button{
                             height: 0;
                             display: inline-block;
@@ -366,8 +413,22 @@
                                 right: 1px;
                             }
                         }
+                        .tips{
+                            color: #9ca2a8;
+                            padding: 5px 0;
+                            font-size: 12px;
+                        }
+                        .preview-body{
+                            border: 2px solid #eee;
+                            display: block;
+                            width: 100%;
+                            height: 116px;
+                            padding: 10px;
+                            overflow: auto;
+                        }
                     }
                 }
+
             }
         }
 
