@@ -1,6 +1,6 @@
 <template>
     <div class="blog-list">
-        <template v-if="(issuesList&&issuesList.length)">
+        <template v-if="!(issuesList&&issuesList.length)">
             <template v-for="(item,index) in issuesList">
                 <div class="blog-list-item">
                     <div class="img-div" @click="pushToContent(item)">
@@ -135,6 +135,9 @@
             &:first-child{
                 height: 500px;
                 width: 100%;
+                @media (max-width: 1000px) {
+                    height: 50vw;
+                }
             }
             &:last-child{
                 height: 30px;
@@ -151,6 +154,8 @@
             background-position: 480px 0
         }
     }
+
+
     .blog-list {
         background-color: white;
         box-shadow: 0 0 1rem rgba(161, 177, 204, .4);
