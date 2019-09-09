@@ -1,4 +1,4 @@
-# 基于Vue+Github API开发可留言的博客,简单配置即可使用。
+#  基于Vue+Github API开发带评论功能的博客,简单配置即可使用。
 花了两周的业余时间使用github+vue搭了一个自己的博客，通过issues的评论功能实现了博客的登录和评论，并把它开源出来。
 先放一个演示地址 [【www.kajie88.com】](https://www.kajie88.com) 
 博客源码地址：[https://github.com/kajiecy/kajiecy.github.io](https://github.com/kajiecy/kajiecy.github.io)
