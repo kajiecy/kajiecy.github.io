@@ -1,9 +1,9 @@
 <template>
     <div class="home">
-        <!--<div style="position:absolute" >-->
-            <!--<button v-if="!token" style="position:absolute" @click="setToken">setToken</button>-->
-            <!--<span v-else>{{token}}</span>-->
-        <!--</div>-->
+<!--        <div style="position:absolute" >-->
+<!--            <button v-if="!token" style="position:absolute" @click="setToken">setToken</button>-->
+<!--            <span v-else>{{token}}</span>-->
+<!--        </div>-->
         <div class="home-background-div"></div>
         <div class="home-body">
             <div class="left-info">
@@ -29,12 +29,12 @@
                                     {{$store.state.milestonesList.length}}
                                 </div>
                             </div>
-                            <span class="blog-function-list-item active" @click="$router.push('/')" title="我的首页">
-                            <div class="list-item-content"><i class="item-icon iconfont icon-shouye"></i>我的首页</div>
-                        </span>
-                            <span class="blog-function-list-item " @click="$router.push({name:'test'})" href="javascript:void(0)" title="关于博客">
-                            <div class="list-item-content"><i class="item-icon iconfont icon-about"></i>关于博客</div>
-                        </span>
+                            <span class="blog-function-list-item " :class="$route.name!=='blog_content'&&$route.query.issueNumber!=$store.state.aboutIssuesId?'active':''" @click="$router.push('/')" title="我的首页">
+                                <div class="list-item-content"><i class="item-icon iconfont icon-shouye"></i>我的首页</div>
+                            </span>
+                            <span class="blog-function-list-item " :class="$route.name==='blog_content'&&$route.query.issueNumber==$store.state.aboutIssuesId?'active':''" @click="$router.push({name:'blog_content',query:{issueNumber:$store.state.aboutIssuesId}})" title="关于博客">
+                                <div class="list-item-content"><i class="item-icon iconfont icon-about"></i>关于博客</div>
+                            </span>
 
                             <div class="blog-widget-wrap">
                                 <h3 class="blog-widget-title">社交按钮</h3>

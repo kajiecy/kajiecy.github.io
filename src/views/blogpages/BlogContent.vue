@@ -14,10 +14,10 @@
                 </div>
             </div>
             <div class="tag-div">
-                <span class="tag-item" style="background-color: #258EFB"><i class="iconfont icon-riqi"></i>{{formatDate(blogContent.created_at)}}</span>
-                <span class="tag-item" style="background-color: #E6A23C"><i class="iconfont icon-riqi"></i>{{getCharCount(blogContent.body)}}字</span>
-                <span class="tag-item" style="background-color: #FF4E6A"><i class="iconfont icon-shijian"></i>大概 {{calcReadTime(blogContent.body)}} 分钟</span>
-                <span class="tag-item blog-labels"
+                <span v-if="blogContent.created_at" class="tag-item" style="background-color: #258EFB"><i class="iconfont icon-riqi"></i>{{formatDate(blogContent.created_at)}}</span>
+                <span v-if="blogContent.body" class="tag-item" style="background-color: #E6A23C"><i class="iconfont icon-riqi"></i>{{getCharCount(blogContent.body)}}字</span>
+                <span v-if="blogContent.body" class="tag-item" style="background-color: #FF4E6A"><i class="iconfont icon-shijian"></i>大概 {{calcReadTime(blogContent.body)}} 分钟</span>
+                <span v-if="blogContent.labels&&blogContent.labels.length" class="tag-item blog-labels"
                       v-for="(cItem) in blogContent.labels.filter((ccItem)=>ccItem.name.indexOf(':img')===-1)"
                       @click="$router.push({name:'blog_list',query:{tag:cItem.name}})"
                       :style="{backgroundColor:'#'+cItem.color}">
@@ -147,7 +147,7 @@
         }
         async initData({toLastPage}:{toLastPage:boolean}={toLastPage:false}){
             (async()=>{
-                if(this.$store.state.templateIssuesInfo.id){
+                if(this.$store.state.templateIssuesInfo.id&&this.$store.state.templateIssuesInfo.id===this.$route.query.issueNumber){
                     this.blogContent = this.$store.state.templateIssuesInfo;
                 }else {
                     this.blogContent = await this.$githubApi.getIssuesContent({issueNumber:this.$route.query.issueNumber});

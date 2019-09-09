@@ -1,28 +1,38 @@
 <template>
     <div class="blog-list">
-        <template v-for="(item,index) in issuesList">
-            <div class="blog-list-item">
-                <div class="img-div" @click="pushToContent(item)">
-                    <img :src="getBlogImg(item)" width="100%" height="100%">
-                    <div class="title-div">
-                        {{item.title}}
+        <template v-if="(issuesList&&issuesList.length)">
+            <template v-for="(item,index) in issuesList">
+                <div class="blog-list-item">
+                    <div class="img-div" @click="pushToContent(item)">
+                        <img :src="getBlogImg(item)" width="100%" height="100%">
+                        <div class="title-div">
+                            {{item.title}}
+                        </div>
                     </div>
-                </div>
-                <div class="tag-div">
-                    <span class="tag-item" style="background-color: #258EFB"><i class="iconfont icon-riqi"></i>{{formatDate(item.created_at)}}</span>
-                    <span class="tag-item" style="background-color: #E6A23C"><i class="iconfont icon-riqi"></i>{{getCharCount(item.body)}}字</span>
-                    <span class="tag-item" style="background-color: #FF4E6A"><i class="iconfont icon-shijian"></i>大概 {{calcReadTime(item.body)}} 分钟</span>
-                    <span class="tag-item blog-labels"
-                          v-for="(cItem) in item.labels.filter((ccItem)=>ccItem.name.indexOf(':img')===-1)"
-                          @click="$router.push({name:'blog_list',query:{tag:cItem.name}})"
-                          :style="{backgroundColor:'#'+cItem.color}">
+                    <div class="tag-div">
+                        <span class="tag-item" style="background-color: #258EFB"><i class="iconfont icon-riqi"></i>{{formatDate(item.created_at)}}</span>
+                        <span class="tag-item" style="background-color: #E6A23C"><i class="iconfont icon-riqi"></i>{{getCharCount(item.body)}}字</span>
+                        <span class="tag-item" style="background-color: #FF4E6A"><i class="iconfont icon-shijian"></i>大概 {{calcReadTime(item.body)}} 分钟</span>
+                        <span class="tag-item blog-labels"
+                              v-for="(cItem) in item.labels.filter((ccItem)=>ccItem.name.indexOf(':img')===-1)"
+                              @click="$router.push({name:'blog_list',query:{tag:cItem.name}})"
+                              :style="{backgroundColor:'#'+cItem.color}">
                         <i class="iconfont icon-biaoqian"></i>{{cItem.name}}
                     </span>
-                    <span  v-if="item.milestone" class="tag-item" style="background-color:#67C23A;cursor: pointer" @click="$router.push({name:'blog_list',query:{milestone:item.milestone.number}})"><i class="iconfont icon-leimupinleifenleileibie"></i>{{item.milestone.title}}</span>
+                        <span  v-if="item.milestone" class="tag-item" style="background-color:#67C23A;cursor: pointer" @click="$router.push({name:'blog_list',query:{milestone:item.milestone.number}})"><i class="iconfont icon-leimupinleifenleileibie"></i>{{item.milestone.title}}</span>
+                    </div>
+                </div>
+            </template>
+            <page-component v-if="issuesList.length" :pageNum="pageNum" :pageSize="pageSize" :total="$store.state.repoInfo.open_issues_count" @changePage="changePage"></page-component>
+        </template>
+        <template v-else>
+            <div class="skeleton-list shadow">
+                <div class="blog-list-item">
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
                 </div>
             </div>
         </template>
-        <page-component v-if="issuesList.length" :pageNum="pageNum" :pageSize="pageSize" :total="$store.state.repoInfo.open_issues_count" @changePage="changePage"></page-component>
     </div>
 </template>
 <script lang="ts">
@@ -104,13 +114,43 @@
             this.pageNum = pageNum;
             this.searchIssuesList();
         }
-        pushToContent(item){
+        pushToContent(item:any){
             this.$store.commit('setTemplateIssuesInfo',item);
             this.$router.push({name:'blog_content',query:{issueNumber:item.number}})
         }
     }
 </script>
 <style lang="scss" scoped>
+    .skeleton-list {
+        background-color: #fff;
+        border-radius: 0 0 .2rem .2rem;
+        overflow: hidden;
+        padding: 0px 3px;
+        .skeleton-row{
+            margin-bottom: 15px;
+            background: linear-gradient(90deg,#fff,#edeff1,#fff);
+            background-size: 480px 480px;
+            animation: skeleton-stripes .6s linear infinite;
+            border-radius: 3px;
+            &:first-child{
+                height: 500px;
+                width: 100%;
+            }
+            &:last-child{
+                height: 30px;
+                width: 50%;
+                margin-left: 20px;
+            }
+        }
+    }
+    @keyframes skeleton-stripes{
+        0% {
+            background-position: 0 0
+        }
+        to {
+            background-position: 480px 0
+        }
+    }
     .blog-list {
         background-color: white;
         box-shadow: 0 0 1rem rgba(161, 177, 204, .4);
