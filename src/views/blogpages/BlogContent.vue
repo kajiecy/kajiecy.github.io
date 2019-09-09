@@ -253,15 +253,15 @@
             animation: skeleton-stripes .6s linear infinite;
             border-radius: 3px;
             &:first-child{
-                height: 30px;
+                height: 26px;
                 width: 100%;
             }
             &:nth-child(2){
-                height: 30px;
+                height: 20px;
                 width: 40%;
             }
             &:last-child{
-                height: 22px;
+                height: 20px;
                 width: 60%;
             }
         }
