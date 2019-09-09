@@ -1,6 +1,6 @@
 <template>
     <div class="blog-list">
-        <template v-if="!(issuesList&&issuesList.length)">
+        <template v-if="(issuesList&&issuesList.length)">
             <template v-for="(item,index) in issuesList">
                 <div class="blog-list-item">
                     <div class="img-div" @click="pushToContent(item)">
@@ -125,7 +125,7 @@
         background-color: #fff;
         border-radius: 0 0 .2rem .2rem;
         overflow: hidden;
-        padding: 0px 3px;
+        padding: 0 3px;
         .skeleton-row{
             margin-bottom: 15px;
             background: linear-gradient(90deg,#fff,#edeff1,#fff);

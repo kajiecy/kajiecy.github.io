@@ -29,7 +29,7 @@
                                     {{$store.state.milestonesList.length}}
                                 </div>
                             </div>
-                            <span class="blog-function-list-item " :class="$route.name!=='blog_content'&&$route.query.issueNumber!=$store.state.aboutIssuesId?'active':''" @click="$router.push('/')" title="我的首页">
+                            <span class="blog-function-list-item " :class="$route.name!=='blog_content'||$route.query.issueNumber!=$store.state.aboutIssuesId?'active':''" @click="$router.push('/')" title="我的首页">
                                 <div class="list-item-content"><i class="item-icon iconfont icon-shouye"></i>我的首页</div>
                             </span>
                             <span class="blog-function-list-item " :class="$route.name==='blog_content'&&$route.query.issueNumber==$store.state.aboutIssuesId?'active':''" @click="$router.push({name:'blog_content',query:{issueNumber:$store.state.aboutIssuesId}})" title="关于博客">

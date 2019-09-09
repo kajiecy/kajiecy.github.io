@@ -25,7 +25,12 @@
                     </span>
                 <span v-if="blogContent.milestone" class="tag-item" style="background-color:#67C23A;cursor: pointer" @click="$router.push({name:'blog_list',query:{milestone:blogContent.milestone.number}})"><i class="iconfont icon-leimupinleifenleileibie"></i>{{blogContent.milestone.title}}</span>
             </div>
-            <article class="markdown-body" v-html="markDownBody"></article>
+            <article v-if="markDownBody" class="markdown-body" v-html="markDownBody"></article>
+            <div v-else class="skeleton-list">
+                <div class="skeleton-row"></div>
+                <div class="skeleton-row"></div>
+                <div class="skeleton-row"></div>
+            </div>
             <div class="do-comment">
                 <div class="title">
                     <span class="right-span">
@@ -67,7 +72,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="blog-comment">
                 <div class="title">
@@ -237,6 +241,40 @@
     }
 </script>
 <style lang="scss" scoped>
+    .skeleton-list {
+        background-color: #fff;
+        border-radius: 0 0 .2rem .2rem;
+        overflow: hidden;
+        padding: 0 3px;
+        .skeleton-row{
+            margin-bottom: 15px;
+            background: linear-gradient(90deg,#fff,#edeff1,#fff);
+            background-size: 480px 480px;
+            animation: skeleton-stripes .6s linear infinite;
+            border-radius: 3px;
+            &:first-child{
+                height: 30px;
+                width: 100%;
+            }
+            &:nth-child(2){
+                height: 30px;
+                width: 40%;
+            }
+            &:last-child{
+                height: 22px;
+                width: 60%;
+            }
+        }
+    }
+    @keyframes skeleton-stripes{
+        0% {
+            background-position: 0 0
+        }
+        to {
+            background-position: 480px 0
+        }
+    }
+
     .blog-content {
         background-color: white;
         box-shadow: 0 0 1rem rgba(161, 177, 204, .4);
