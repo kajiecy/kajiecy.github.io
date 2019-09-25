@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="padding-top: 200px">
+<!--    <div id="boxbody">-->
+<!--        <div class="box" id="box1">-->
+<!---->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="cube-parent">
+        <div class="boxbody-3d cube-out" style="">
+            <div class="box box1"></div>
+            <div class="box box2"></div>
+            <div class="box box3"></div>
+            <div class="box box4"></div>
+            <div class="box box5"></div>
+            <div class="box box6"></div>
+        </div>
+        <div class="boxbody-3d cube-inner" style="">
+            <div class="box box1"></div>
+            <div class="box box2"></div>
+            <div class="box box3"></div>
+            <div class="box box4"></div>
+            <div class="box box5"></div>
+            <div class="box box6"></div>
+        </div>
+    </div>
+
+
+
+
+</body>
+<style>
+    body,html{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        background-color: black;
+    }
+    .cube-parent{
+        transform-style: preserve-3d;
+        transform: rotateX(-33.5deg) rotateY(45deg);
+        background-color: #67BB1E;
+    }
+
+
+    .boxbody-3d{
+        /*background-color: beige;*/
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+        transform-style: preserve-3d;
+        transform-origin: 50% 50% 61px;
+        /*animation:mymove-out 10s infinite;*/
+    }
+
+
+    .box{
+        position: absolute;
+        left: calc(50% - 61px);
+        top: calc(50% - 61px);
+        width: 120px;
+        height: 120px;
+        transform-style: preserve-3d;
+        transform-origin: 50% 50% 61px;
+        transform: translate3d(0px,0px,0px) scale3d(1,1,1) rotate3d(0,1,0,0deg);
+    }
+
+    .cube-inner .box{
+        background-color: #007aff;
+        border: 2px solid #ffffff;
+    }
+    .cube-out{
+        /*transform: rotateY(-0deg);*/
+        animation:mymove-out 30s ease-in-out infinite;
+    }
+    .cube-inner{
+        /*transform: translate3d(0px,-121px,0px) scale3d(0.5,0.5,0.5) rotateY(0deg);*/
+        animation:mymove-inner 30s ease-in-out infinite;
+    }
+    .cube-out .box{
+        background: rgba(141, 214, 249, 0.5);
+        border: 1px solid #ffffff;
+    }
+
+
+    .box1{
+        transform: translate3d(0px,0px,0px) scale3d(1,1,1) rotate3d(0,1,0,0deg);
+    }
+    .box2{
+        transform: translate3d(0px,0px,0px) scale3d(1,1,1) rotate3d(0,1,0,90deg);
+    }
+    .box3{
+        transform: translate3d(0px,0px,0px) scale3d(1,1,1) rotate3d(0,1,0,180deg);
+    }
+    .box4{
+        transform: translate3d(0px,0px,0px) scale3d(1,1,1) rotate3d(0,1,0,270deg);
+    }
+    .box5{
+        transform: translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(90deg) rotateY(0deg);
+    }
+    .box6{
+        transform: translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(-90deg) rotateY(0deg);
+    }
+
+
+    @keyframes mymove-out
+    {
+        0% {
+            transform: rotateY(-0deg);
+        }
+        25% {
+            transform: rotateY(-90deg);
+        }
+        50% {
+            transform: rotateY(-180deg);
+        }
+        75% {
+            transform: rotateY(-270deg);
+        }
+        100% {
+            transform: rotateY(-360deg);
+        }
+    }
+    @keyframes mymove-inner
+    {
+        0% {
+            transform: translate3d(0px,-121px,0px) scale3d(0.5,0.5,0.5) rotateY(0deg);
+        }
+        25% {
+            transform: translate3d(0px,-121px,0px) scale3d(0.5,0.5,0.5) rotateY(90deg);
+        }
+        50% {
+            transform: translate3d(0px,-121px,0px) scale3d(0.5,0.5,0.5) rotateY(180deg);
+        }
+        75% {
+            transform: translate3d(0px,-121px,0px) scale3d(0.5,0.5,0.5) rotateY(270deg);
+        }
+        100% {
+            transform: translate3d(0px,-121px,0px) scale3d(0.5,0.5,0.5) rotateY(360deg);
+        }
+    }
+
+
+
+</style>
+</html>
