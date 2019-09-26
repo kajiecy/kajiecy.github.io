@@ -10,6 +10,7 @@
 <!---->
 <!--        </div>-->
 <!--    </div>-->
+<div class="cube-package">
     <div class="cube-parent">
         <div class="boxbody-3d cube-out" style="">
             <div class="box box1"></div>
@@ -28,35 +29,50 @@
             <div class="box box6"></div>
         </div>
     </div>
-
-
-
+</div>
 
 </body>
+<script>
+    var onMessage = function(e){
+
+        // parent.window.opener.get_135editor_content(e.data);
+        console.log(e);//
+        alert('收到消息');
+        document.write("<iframe style=\"display:none;\" src=\"http://www.135editor.com/pages/closeWindow.html\"></iframe>");
+
+    }
+    if (window.addEventListener) {  // all browsers except IE before version 9
+        console.log('开启监听1');
+        window.addEventListener("message", onMessage, false);
+
+    } else {
+
+        if (window.attachEvent) {   // IE before version 9
+            console.log('开启监听2');
+            window.attachEvent("onmessage", onMessage);
+
+        }
+    }
+
+</script>
 <style>
-    body,html{
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
+    .cube-package{
         background-color: #2B3A42;
+        width: 240px;
+        height: 240px;
+        /*transform: scale(0.5);*/
+        margin: 0 auto;
     }
     .cube-parent{
         transform-style: preserve-3d;
         transform: rotateX(-33.5deg) rotateY(45deg);
     }
-
-
     .boxbody-3d{
-        /*background-color: beige;*/
         width: 120px;
         height: 120px;
-        margin: 0 auto;
         transform-style: preserve-3d;
         transform-origin: 50% 50% 61px;
-        /*animation:mymove-out 10s infinite;*/
     }
-
-
     .box{
         position: absolute;
         left: calc(50% - 61px);
@@ -67,7 +83,6 @@
         transform-origin: 50% 50% 61px;
         transform: translate3d(0px,0px,0px) scale3d(1,1,1) rotate3d(0,1,0,0deg);
     }
-
     .cube-inner .box{
         background-color: #007aff;
         border: 2px solid #ffffff;
@@ -84,8 +99,6 @@
         background: rgba(141, 214, 249, 0.5);
         border: 1px solid #ffffff;
     }
-
-
     .box1{
         transform: translate3d(0px,0px,0px) scale3d(1,1,1) rotate3d(0,1,0,0deg);
     }
@@ -104,10 +117,7 @@
     .box6{
         transform: translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(-90deg) rotateY(0deg);
     }
-
-
-    @keyframes mymove-out
-    {
+    @keyframes mymove-out{
         0% {
             transform: rotateY(-0deg);
         }
@@ -124,8 +134,7 @@
             transform: rotateY(-360deg);
         }
     }
-    @keyframes mymove-inner
-    {
+    @keyframes mymove-inner{
         0% {
             transform: translate3d(0px,-121px,0px) scale3d(0.5,0.5,0.5) rotateY(0deg);
         }
