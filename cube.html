@@ -33,26 +33,6 @@
 
 </body>
 <script>
-    var onMessage = function(e){
-
-        // parent.window.opener.get_135editor_content(e.data);
-        console.log(e);//
-        alert('收到消息');
-        document.write("<iframe style=\"display:none;\" src=\"https://www.135editor.com/pages/closeWindow.html\"></iframe>");
-
-    }
-    if (window.addEventListener) {  // all browsers except IE before version 9
-        console.log('开启监听1');
-        window.addEventListener("message", onMessage, false);
-
-    } else {
-
-        if (window.attachEvent) {   // IE before version 9
-            console.log('开启监听2');
-            window.attachEvent("onmessage", onMessage);
-
-        }
-    }
 
 </script>
 <style>

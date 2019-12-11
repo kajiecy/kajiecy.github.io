@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="show">1</div>
+    <button onclick="openWindows()">111</button>
+</body>
+<script>
+    function openWindows() {
+        var url = '//www.135editor.com/beautify_editor?callback=http%3A%2F%2Fwww.135editor.com%2Fpages%2FeditorCallback';
+        var myEditor = window.open(url,'new_window','height='+(window.screen.availHeight - 60) +',width='+(window.screen.availWidth - 60)+';help=no,resizable=no,status=no,scroll=yes');
+        setTimeout(function(){
+            myEditor.postMessage(ckeditors['FeedBackName'].getData(),'*');
+        },3000);
+
+        window.addEventListener('message', function (event) {
+            //editor.setContent(event.data);
+            _this.formData.evaluation = event.data
+        }, false);
+    }
+</script>
+</html>

@@ -97,10 +97,7 @@
                                 </div>
                             </div>
                             <div style="text-align: right;color: #9ca2a8;" class="pb20">
-                                © 2019 卡杰(kajiecy) Powered by <a class="blog-widget-item" href="https://github.com/kajiecy/"
-                                                                 target="_blank" style="color:#258EFB;text-decoration: none"
-                                                                 title="github">Myself</a>
-
+                                <a href="http://beian.miit.gov.cn" style="color: #1c8fec;text-decoration: none;color: #666666" target="_blank">苏ICP备18024070号</a>
                             </div>
                         </div>
                     </div>

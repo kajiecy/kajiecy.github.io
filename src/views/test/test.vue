@@ -11,7 +11,7 @@
     export default class test extends Vue {
         test:boolean = false;
         created() {
-
+            let content = '';
         }
     }
 </script>
