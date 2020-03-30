@@ -1,0 +1,43 @@
+.show-table-six{
+    background-color: #DB0101;
+    font-size:20px;
+    color:rgba(255,255,255,1);
+    line-height:35px;
+    font-family:Microsoft YaHei
+}
+.show-table-six .dis_table_cell.text{
+    box-sizing: border-box;
+    padding:0 75px;
+}
+.show-table-six h1{
+    font-size:30px;
+    font-weight:bold;
+    color:rgba(255,255,255,1);
+    line-height:35px;
+    font-family:Microsoft YaHei;
+    margin-bottom: 40px;
+}
+.serves-idea{
+    background-color: white;
+}
+.dis-none{
+    display: none;
+}
+.case-switch{
+    padding-bottom: 40px;
+    margin-bottom: 0;
+}
+.case-switch-item{
+    border:1px solid rgba(0,0,0,0.12);
+    border-radius:10px;
+    margin-left:20px;
+    margin-right: 20px;
+}
+.idea-view{
+    width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 19px;
+    color: #515151;
+    line-height:37px;
+}
