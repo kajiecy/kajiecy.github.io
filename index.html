@@ -1,22 +1,253 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang=en>
+
 <head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-</head>
-<body>
-  <div id="app"></div>
-  <script>
-    window.$docsify = {
-      name: '',
-      repo: ''
+  <meta charset=utf-8>
+  <meta http-equiv=X-UA-Compatible content="IE=edge">
+  <meta name=viewport
+    content="initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0,width=device-width,viewport-fit=cover">
+  <link rel=icon href=/favicon.ico>
+  <title>卡杰's Blog</title>
+  <style type=text/css>
+    .cube-package {
+      background-color: #2B3A42;
+      width: 240px;
+      height: 240px;
+      margin: 0 auto;
     }
-  </script>
-  <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+
+    .cube-parent {
+      transform-style: preserve-3d;
+      transform: rotateX(-33.5deg) rotateY(45deg) rotateZ(0deg);
+      /*animation:test-animation 30s ease-in-out infinite;*/
+    }
+
+    .boxbody-3d {
+      width: 120px;
+      height: 120px;
+    }
+
+    .iphone-origin {
+      transform-style: preserve-3d;
+      transform-origin: 50% 50% 0;
+      position: relative;
+      top: 60px;
+      left: 26%;
+    }
+
+    .chrome-origin {
+      transform-style: preserve-3d;
+      transform-origin: 50% 50% 61px;
+    }
+
+    .box {
+      position: absolute;
+      left: calc(50% - 61px);
+      top: calc(50% - 61px);
+      width: 120px;
+      height: 120px;
+      transform-style: preserve-3d;
+      transform-origin: 50% 50% 60px;
+      transform: rotate3d(0, 1, 0, 60deg);
+    }
+
+    .cube-inner .box {
+      background-color: #007aff;
+      border: 2px solid #ffffff;
+    }
+
+    .cube-out {
+      animation: mymove-out 30s ease-in-out infinite;
+    }
+
+    .cube-inner {
+      transform: translate3d(0px, -122px, 0px) scale3d(0.5, 0.5, 0.5);
+      animation: mymove-inner 30s ease-in-out infinite;
+    }
+
+    .cube-out .box {
+      background: rgba(141, 214, 249, 0.5);
+      border: 1px solid #ffffff;
+    }
+
+    .box1 {
+      transform: rotate3d(0, 1, 0, 0deg);
+    }
+
+    .box2 {
+      transform: rotate3d(0, 1, 0, 90deg);
+    }
+
+    .box3 {
+      transform: rotate3d(0, 1, 0, 180deg);
+    }
+
+    .box4 {
+      transform: rotate3d(0, 1, 0, 270deg);
+    }
+
+    .box5 {
+      transform: rotateX(90deg) rotateY(0deg);
+    }
+
+    .box6 {
+      transform: rotateX(-90deg) rotateY(0deg);
+    }
+
+    @keyframes test-animation {
+      from {
+        transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+      }
+
+      to {
+        transform: rotateX(360deg) rotateY(0deg) rotateZ(0deg);
+
+      }
+    }
+
+    @keyframes mymove-out {
+      0% {
+        transform: rotateY(-0deg);
+      }
+
+      25% {
+        transform: rotateY(-90deg);
+      }
+
+      50% {
+        transform: rotateY(-180deg);
+      }
+
+      75% {
+        transform: rotateY(-270deg);
+      }
+
+      100% {
+        transform: rotateY(-360deg);
+      }
+    }
+
+    @keyframes mymove-inner {
+      0% {
+        transform: translate3d(0px, -122px, 0px) scale3d(0.5, 0.5, 0.5) rotateY(0deg);
+      }
+
+      25% {
+        transform: translate3d(0px, -122px, 0px) scale3d(0.5, 0.5, 0.5) rotateY(90deg);
+      }
+
+      50% {
+        transform: translate3d(0px, -122px, 0px) scale3d(0.5, 0.5, 0.5) rotateY(180deg);
+      }
+
+      75% {
+        transform: translate3d(0px, -122px, 0px) scale3d(0.5, 0.5, 0.5) rotateY(270deg);
+      }
+
+      100% {
+        transform: translate3d(0px, -122px, 0px) scale3d(0.5, 0.5, 0.5) rotateY(360deg);
+      }
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #loading-body {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background-color: #2B3A42;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .loading-text {
+      color: white;
+      text-align: center;
+    }
+
+    .flex-item {
+      flex: 0 0 auto;
+    }
+  </style>
+  <link href=/css/about.bf509223.css rel=prefetch>
+  <link href=/js/about.92fea8dc.js rel=prefetch>
+  <link href=/css/app.fcc56bcf.css rel=preload as=style>
+  <link href=/css/chunk-vendors.cb82569e.css rel=preload as=style>
+  <link href=/js/app.ac05554e.js rel=preload as=script>
+  <link href=/js/chunk-vendors.28dcce85.js rel=preload as=script>
+  <link href=/css/chunk-vendors.cb82569e.css rel=stylesheet>
+  <link href=/css/app.fcc56bcf.css rel=stylesheet>
+</head>
+
+<body><noscript><strong>We're sorry but my_blog doesn't work properly without JavaScript enabled. Please enable it to
+      continue.</strong></noscript>
+  <div id=app>
+    <div id=loading-body>
+      <div class="cube-package flex-item">
+        <div class=cube-parent>
+          <div class="boxbody-3d cube-out" style="">
+            <div class="box box1"></div>
+            <div class="box box2"></div>
+            <div class="box box3"></div>
+            <div class="box box4"></div>
+            <div class="box box5"></div>
+            <div class="box box6"></div>
+          </div>
+          <div class="boxbody-3d cube-inner" style="">
+            <div class="box box1"></div>
+            <div class="box box2"></div>
+            <div class="box box3"></div>
+            <div class="box box4"></div>
+            <div class="box box5"></div>
+            <div class="box box6"></div>
+          </div>
+        </div>
+      </div>
+      <div class="loading-text flex-item">正在载入请稍后。。。。</div>
+    </div>
+  </div>
+  <script>(function () {
+      let addClassName = '';
+      if (checkMobile() === '0') {
+        addClassName = ' iphone-origin';
+      } else {
+        addClassName = ' chrome-origin';
+      }
+      var boxCollection = document.getElementsByClassName('boxbody-3d')
+      for (var i = 0; i < boxCollection.length; i++) {
+        boxCollection.item(i).className = boxCollection.item(i).className + addClassName;
+      }
+    })();
+
+    function checkMobile() {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      if (/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))) {
+        if (window.location.href.indexOf("?mobile") < 0) {
+          try {
+            if (/iPhone|mac|iPod|iPad/i.test(navigator.userAgent)) {
+              return '0';
+            } else {
+              return '1';
+            }
+          } catch (e) {
+            return '';
+          }
+        } else {
+          return '';
+        }
+      } else if (u.indexOf('iPad') > -1) {
+        return '0';
+      } else {
+        return '1';
+      }
+    }</script>
+  <script src=/js/chunk-vendors.28dcce85.js></script>
+  <script src=/js/app.ac05554e.js></script>
 </body>
+
 </html>
